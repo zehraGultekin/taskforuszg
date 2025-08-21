@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:taskforuszehra/core/theme/app_theme.dart';
 import 'package:taskforuszehra/features/home/view/home_view.dart';
+import 'package:taskforuszehra/features/task/task_view.dart';
 
 void main() {
   runApp(const MainApp());
@@ -22,7 +23,7 @@ class _MainAppState extends State<MainApp> {
       debugShowCheckedModeBanner: false,
       title: "Task for Us Zehra",
       theme: AppTheme.theme,
-      home: HomeView()
+      home: TaskView()
     );
   }
 }
