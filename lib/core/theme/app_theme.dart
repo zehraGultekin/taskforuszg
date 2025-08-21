@@ -4,10 +4,15 @@ import 'package:taskforuszehra/core/theme/Appcolors.dart';
 class AppTheme {
   static ThemeData theme = ThemeData(
     textTheme: const TextTheme(
-      bodyLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+      bodyLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
       bodyMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
       bodySmall: TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
     ),
+
+    scaffoldBackgroundColor: Appcolors.primary,
+
+    
+    
     useMaterial3: true,
     colorScheme: ColorScheme(
       brightness:Brightness.dark, 

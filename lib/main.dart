@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:taskforuszehra/core/theme/app_theme.dart';
 import 'package:taskforuszehra/features/home/view/home_view.dart';
@@ -19,11 +17,11 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Task for Us Zehra",
       theme: AppTheme.theme,
-      home: TaskView()
+      home: TaskView(),
     );
   }
 }

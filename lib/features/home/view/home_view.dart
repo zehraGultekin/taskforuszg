@@ -11,20 +11,22 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
       body: Column(
         children: [
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.only(top:40),
+            padding: const EdgeInsets.only(top: 40),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
               boxShadow: [
                 BoxShadow(
-                  color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.1,   ),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.shadow.withValues(alpha: 0.1),
                   blurRadius: 10,
                   offset: const Offset(0, 2),
-                ),     ],
+                ),
+              ],
             ),
             child: Row(
               children: [
@@ -35,7 +37,9 @@ class _HomeViewState extends State<HomeView> {
                     borderRadius: BorderRadius.circular(15),
                     boxShadow: [
                       BoxShadow(
-                        color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.1,),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.shadow.withValues(alpha: 0.1),
                         blurRadius: 8,
                         offset: const Offset(0, 3),
                       ),
@@ -43,10 +47,7 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15),
-                    child: const Icon(
-                      Icons.person,
-                      size: 35,
-                    ),
+                    child: const Icon(Icons.person, size: 35),
                   ),
                 ),
                 const SizedBox(width: 15),
@@ -57,7 +58,8 @@ class _HomeViewState extends State<HomeView> {
                       "Zehra Gültekin",
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onSurface,   ),
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                     ),
                     const SizedBox(height: 5),
                     Row(
@@ -87,58 +89,68 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           const SizedBox(height: 10),
-        Expanded(
-  child: ListView.builder(
-    itemCount: 1,
-    itemBuilder: (BuildContext context, int index) {
-      return Padding(
-        padding: const EdgeInsets.only(left: 25, right: 25),
-        child: Container(
-          height: 90,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.1),
-                blurRadius: 8,
-                offset: const Offset(0, 2),
-              ),
-            ],
+          Expanded(
+            child: ListView.builder(
+              itemCount: 1,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  height: 90,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surface,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.shadow.withValues(alpha: 0.1),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: ListTile(
+                      leading: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onPrimary.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Icon(
+                          Icons.calendar_today_rounded,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                      ),
+                      title: Text(
+                        'İzinlerim',
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                      ),
+                      subtitle: Text(
+                        'İzin talepleri ve izin geçmişi',
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium?.copyWith(color: Colors.grey),
+                      ),
+                      trailing: const Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.grey,
+                        size: 15,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child:ListTile(
-  leading: Container(
-    width: 50,
-    height: 50,
-    decoration: BoxDecoration(
-      color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.1),
-      borderRadius: BorderRadius.circular(10),
-    ),
-    child: const Icon(
-      Icons.calendar_today_rounded,
-      color: Colors.white,
-      size: 30,
-    ),
-  ),
-  title: Text(
-    'İzinlerim',
-    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-          fontWeight: FontWeight.bold,
-          color: Theme.of(context).colorScheme.onSurface,
-        ),
-  ), 
-  subtitle: Text(
-    'İzin talepleri ve izin geçmişi',
-    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-          color: Colors.grey,
-        ),
-  ),
-  trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 15),
-)
-),)); },
-),)
         ],
       ),
     );

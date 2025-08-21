@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taskforuszehra/core/widgets/appbar.dart';
+import 'package:taskforuszehra/features/task/widgets/task_widget.dart';
 
 class TaskView extends StatefulWidget {
   const TaskView({super.key});
@@ -11,88 +12,193 @@ class TaskView extends StatefulWidget {
 class _TaskViewState extends State<TaskView> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+    return Scaffold(
       appBar: CustomAppBar(
         title: 'Görevlerim',
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        textColor: Colors.white,
-        height: 56.0,
+
         actions: [
           IconButton(
             icon: Icon(Icons.repeat_rounded, color: Colors.white),
-            onPressed: () {
-            },
+            onPressed: () {},
           ),
         ],
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: Column(
         children: [
-          taskWidget(icon: Icons.calendar_view_day,number: "0",title: "Tamamlanmayı",subtitle: "Bekleyen",color: Colors.amber,),
-         SizedBox(width: 10),
-          taskWidget(icon: Icons.task_alt_outlined,title: "Başarıyla",subtitle: "Tamamlanan",number: "0",color: Colors.green,),
-        SizedBox(width: 10),
-         taskWidget(icon: Icons.person_add_disabled, title: "Alınmayı", subtitle: "Bekleyen", number: "5", color: Colors.grey)
-          ],
-      )
-    );
-  }
-}
-
-class taskWidget extends StatelessWidget {
-final IconData icon ;
-final String number;
-final String title;
-  final String subtitle;
-  final Color color;
-  const taskWidget({
-  
-    super.key, required this.icon, required this.title, required this.subtitle, required this.number, required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 120,
-      width: 120,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Theme.of(context).colorScheme.surface,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: Offset(0, 3), 
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TaskWidget(
+                icon: Icons.calendar_view_day,
+                number: "0",
+                title: "Tamamlanmayı",
+                subtitle: "Bekleyen",
+                color: Colors.amber,
+              ),
+              SizedBox(width: 10),
+              TaskWidget(
+                icon: Icons.task_alt_outlined,
+                title: "Başarıyla",
+                subtitle: "Tamamlanan",
+                number: "0",
+                color: Colors.green,
+              ),
+              SizedBox(width: 10),
+              TaskWidget(
+                icon: Icons.person_add_disabled,
+                title: "Alınmayı",
+                subtitle: "Bekleyen",
+                number: "5",
+                color: Colors.grey,
+              ),
+            ],
+          ),
+          SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(Icons.task_rounded, size: 30, color: Colors.white),
+                SizedBox(width: 5),
+                Text(
+                  "Görevler",
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                ),
+                Spacer(),
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                          backgroundColor: Theme.of(
+                            context,
+                          ).colorScheme.primary,
+                          context: context,
+                          builder: (BuildContext context) {
+                            return SizedBox(
+                              height: 200,
+                              child: Center(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 20,
+                                        left: 20,
+                                        right: 20,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Proje Seç",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge
+                                                ?.copyWith(
+                                                  color: Theme.of(
+                                                    context,
+                                                  ).colorScheme.onSurface,
+                                                ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Icon(
+                                              Icons.close,
+                                              color: Colors.white,
+                                              size: 30,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 20),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        left: 20,
+                                        right: 20,
+                                      ),
+                                      child: Container(
+                                        height: 45,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.surface,
+                                          borderRadius: BorderRadius.circular(
+                                            20,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons.search,
+                                                color: Colors.grey,
+                                                size: 20,
+                                              ),
+                                              SizedBox(width: 10),
+                                              Text(
+                                                "Proje Ara...",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyMedium
+                                                    ?.copyWith(
+                                                      color: Colors.grey,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Divider(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      thickness: 1,
+                                      endIndent: 20,
+                                      indent: 20,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      child: Icon(Icons.filter),
+                    ),
+                    SizedBox(width: 10),
+                    Container(
+                      height: 40,
+                      width: 140,
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "+ Yeni Görev",
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(top: 4),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-          Icon(icon, size: 30, color: color),
-          SizedBox(height: 8),
-          Text(number,style: TextStyle(
-            color:color,
-            fontSize: 25,
-            fontWeight: FontWeight.bold
-          ),),
-          SizedBox(height: 8),
-          Text(title,style: TextStyle(
-            color: Colors.white,
-            fontSize: 12,
-          ),
-          ),
-          Text(subtitle,style: TextStyle(
-            color: Colors.white,
-            fontSize: 12,
-          ),)
-        
-                 ] ),
       ),
     );
   }
