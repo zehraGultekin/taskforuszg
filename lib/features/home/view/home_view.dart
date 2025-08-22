@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import 'package:taskforuszehra/features/home/view/menu_item.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -91,67 +94,65 @@ class _HomeViewState extends State<HomeView> {
           const SizedBox(height: 10),
           Expanded(
             child: ListView.builder(
-              itemCount: 1,
+              itemCount: MenuItem.items.length,
               itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  height: 90,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.shadow.withValues(alpha: 0.1),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: ListTile(
-                      leading: Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onPrimary.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Icon(
-                          Icons.calendar_today_rounded,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                      ),
-                      title: Text(
-                        'İzinlerim',
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                      ),
-                      subtitle: Text(
-                        'İzin talepleri ve izin geçmişi',
-                        style: Theme.of(
-                          context,
-                        ).textTheme.bodyMedium?.copyWith(color: Colors.grey),
-                      ),
-                      trailing: const Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.grey,
-                        size: 15,
-                      ),
-                    ),
-                  ),
+                final item = MenuItem.items[index];
+                return Listwidget(
+                  title: item.title,
+                  subtitle: item.subtitle,
+                  icon: item.icon,
+                  onTap: () {
+                    context.goNamed(item.route.name);
+                  },
                 );
               },
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class Listwidget extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final VoidCallback onTap;
+
+  const Listwidget({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Theme.of(context).colorScheme.surface,
+      ),
+      width: double.infinity,
+      child: Center(
+        child: ListTile(
+          onTap: onTap,
+          leading: Container(
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white.withAlpha(20),
+            ),
+            child: Icon(icon, color: Colors.grey),
+          ),
+          title: Text(title, style: TextTheme().bodyLarge),
+          subtitle: Text(subtitle, style: TextTheme().bodySmall),
+          trailing: Icon(Icons.arrow_forward_ios, size: 20, color: Colors.grey),
+        ),
       ),
     );
   }
