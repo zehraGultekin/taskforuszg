@@ -25,7 +25,7 @@ class TaskWidget extends StatelessWidget {
         color: Theme.of(context).colorScheme.surface,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             spreadRadius: 2,
             blurRadius: 5,
             offset: Offset(0, 3),
