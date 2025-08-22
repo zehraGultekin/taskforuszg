@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:taskforuszehra/core/route/app_route_name.dart';
 import 'package:taskforuszehra/core/widgets/appbar.dart';
 import 'package:taskforuszehra/features/task/widgets/task_item.dart';
 import 'package:taskforuszehra/features/task/widgets/task_widget.dart';
@@ -411,21 +413,28 @@ class _TaskViewState extends State<TaskView> {
                       ),
                     ),
                     SizedBox(width: 10),
-                    Container(
-                      height: 40,
-                      width: 140,
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "+ Yeni Görev",
-                          style: Theme.of(context).textTheme.bodyMedium
-                              ?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
+                    InkWell(
+                      onTap: () {
+                        context.goNamed(AppRouteName.task_create.name);
+                      },
+                      child: Container(
+                        height: 40,
+                        width: 140,
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "+ Yeni Görev",
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
+                                ),
+                          ),
                         ),
                       ),
                     ),

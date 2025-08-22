@@ -7,6 +7,7 @@ import 'package:taskforuszehra/features/permission/permission_request.dart';
 import 'package:taskforuszehra/features/permission/permission_view.dart';
 import 'package:taskforuszehra/features/settings/settings_view.dart';
 import 'package:taskforuszehra/features/task/task_view.dart';
+import 'package:taskforuszehra/features/task/widgets/create_task.dart';
 
 //kalıcı bir bottom içinde gezinmek istiyorsam Shell route kullanmam gerekiyor.Kalıcı bir alt sekme çubuğu sağlıyor.
 
@@ -63,6 +64,13 @@ class AppRoute {
         name: AppRouteName.permission_request.name,
         builder: (context, state) {
           return PermissionRequest();
+        },
+      ),
+      GoRoute(
+        path: "/task_create",
+        name: AppRouteName.task_create.name,
+        builder: (context, state) {
+          return CreateTask();
         },
       ),
     ],

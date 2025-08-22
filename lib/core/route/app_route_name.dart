@@ -6,4 +6,5 @@ enum AppRouteName {
   navigator,
   permission,
   permission_request,
+  task_create,
 }
