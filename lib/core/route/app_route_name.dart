@@ -1,1 +1,9 @@
-enum AppRouteName { home, task, activities, settings, navigator, permission }
+enum AppRouteName {
+  home,
+  task,
+  activities,
+  settings,
+  navigator,
+  permission,
+  permission_request,
+}

@@ -3,6 +3,7 @@ import 'package:taskforuszehra/core/route/app_route_name.dart';
 import 'package:taskforuszehra/features/activies/activities_view.dart';
 import 'package:taskforuszehra/features/home/view/home_view.dart';
 import 'package:taskforuszehra/features/navigator/navigator.dart';
+import 'package:taskforuszehra/features/permission/permission_request.dart';
 import 'package:taskforuszehra/features/permission/permission_view.dart';
 import 'package:taskforuszehra/features/settings/settings_view.dart';
 import 'package:taskforuszehra/features/task/task_view.dart';
@@ -55,6 +56,13 @@ class AppRoute {
         name: AppRouteName.permission.name,
         builder: (context, state) {
           return PermissionView();
+        },
+      ),
+      GoRoute(
+        path: "/permission_request",
+        name: AppRouteName.permission_request.name,
+        builder: (context, state) {
+          return PermissionRequest();
         },
       ),
     ],
