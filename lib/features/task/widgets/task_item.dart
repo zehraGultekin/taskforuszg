@@ -11,3 +11,10 @@ class TaskItem {
     TaskItem(title: "Colder", subtitle: "Harputlu Otomotiv Ltd.şti"),
   ];
 }
+
+class Project {
+  final String title;
+  final String subtitle;
+
+  Project({required this.title, required this.subtitle});
+}

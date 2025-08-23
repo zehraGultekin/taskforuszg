@@ -48,7 +48,7 @@ class _PermissionRequestState extends State<PermissionRequest> {
           onPressed: () {
             context.goNamed(
               AppRouteName.permission.name,
-            ); //Şimdilik ShellRoute oluşturulacak
+            ); //Şimdilik ShellRoute oluşturulaca
           },
           icon: Icon(Icons.arrow_back_ios_new_outlined),
         ),
@@ -94,34 +94,39 @@ class _PermissionRequestState extends State<PermissionRequest> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Expanded(
-                  child: RadioListTile<String>(
-                    value: "Gün",
-                    title: const Text("Gün"),
-                    groupValue: selectedOption,
-                    activeColor: Colors.white,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedOption = value!;
-                      });
-                    },
-                  ),
+                Row(
+                  children: [
+                    Radio(
+                      value: "Gün",
+                      groupValue: selectedOption,
+                      activeColor: Colors.white,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedOption = value!;
+                        });
+                      },
+                    ),
+                    const Text("Gün"),
+                  ],
                 ),
-                Expanded(
-                  child: RadioListTile<String>(
-                    value: "Saat",
-                    title: const Text("Saat"),
-                    groupValue: selectedOption,
-                    activeColor: Colors.white,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedOption = value!;
-                      });
-                    },
-                  ),
+                Row(
+                  children: [
+                    Radio(
+                      value: "Saat",
+                      groupValue: selectedOption,
+                      activeColor: Colors.white,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedOption = value!;
+                        });
+                      },
+                    ),
+                    const Text("Saat"),
+                  ],
                 ),
               ],
             ),
+
             SizedBox(height: 20),
 
             selectedOption == "Gün"
