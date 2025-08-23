@@ -21,7 +21,7 @@ class _TaskViewState extends State<TaskView> {
         title: 'Görevlerim',
         actions: [
           IconButton(
-            icon: Icon(Icons.repeat_rounded, color: Colors.white),
+            icon: Icon(Icons.refresh, color: Colors.white),
             onPressed: () {},
           ),
         ],

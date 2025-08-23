@@ -1,8 +1,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:taskforuszehra/core/route/app_route_name.dart';
-import 'package:taskforuszehra/features/activies/activities_view.dart';
+import 'package:taskforuszehra/features/activies/view/activities_view.dart';
 import 'package:taskforuszehra/features/home/view/home_view.dart';
-import 'package:taskforuszehra/features/navigator/navigator.dart';
+import 'package:taskforuszehra/features/navigator/navigator_view.dart';
 import 'package:taskforuszehra/features/permission/permission_request.dart';
 import 'package:taskforuszehra/features/permission/permission_view.dart';
 import 'package:taskforuszehra/features/settings/settings_view.dart';
@@ -49,7 +49,7 @@ class AppRoute {
         path: "/navigator",
         name: AppRouteName.navigator.name,
         builder: (context, state) {
-          return BottomNavigation();
+          return BottomNavigator();
         },
       ),
       GoRoute(

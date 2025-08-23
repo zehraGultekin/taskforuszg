@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import 'package:taskforuszehra/features/home/view/menu_item.dart';
+import 'package:taskforuszehra/features/home/view/models/menu_item.dart';
+import 'package:taskforuszehra/features/home/view/widgets/menu_item_tile.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -97,7 +97,7 @@ class _HomeViewState extends State<HomeView> {
               itemCount: MenuItem.items.length,
               itemBuilder: (BuildContext context, int index) {
                 final item = MenuItem.items[index];
-                return Listwidget(
+                return MenuItemTile(
                   title: item.title,
                   subtitle: item.subtitle,
                   icon: item.icon,
@@ -109,50 +109,6 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class Listwidget extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final IconData icon;
-  final VoidCallback onTap;
-
-  const Listwidget({
-    super.key,
-    required this.title,
-    required this.subtitle,
-    required this.icon,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Theme.of(context).colorScheme.surface,
-      ),
-      width: double.infinity,
-      child: Center(
-        child: ListTile(
-          onTap: onTap,
-          leading: Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white.withAlpha(20),
-            ),
-            child: Icon(icon, color: Colors.grey),
-          ),
-          title: Text(title, style: TextTheme().bodyLarge),
-          subtitle: Text(subtitle, style: TextTheme().bodySmall),
-          trailing: Icon(Icons.arrow_forward_ios, size: 20, color: Colors.grey),
-        ),
       ),
     );
   }

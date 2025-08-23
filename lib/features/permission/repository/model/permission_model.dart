@@ -11,7 +11,7 @@ final List<PermissionModel> items = [
   PermissionModel(id: 2, name: "Büşra", status: "Bekleniyor"),
   PermissionModel(id: 4, name: "Büşra", status: "Bekleniyor"),
 
-  PermissionModel(id: 2, name: "Buğra", status: "Reddedilen"),
+  PermissionModel(id: 3, name: "Buğra", status: "Reddedilen"),
 ];
 
 List<PermissionModel> filter(String status) {
