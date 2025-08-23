@@ -39,17 +39,24 @@ class _CreateTaskState extends State<CreateTask> {
               value: selectedCity,
               onTap: () async {
                 final city = await showModalBottomSheet(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  isScrollControlled: true,
                   context: context,
                   builder: (context) {
                     List<String> cities = ["Adana", "Hatay", "Mersin"];
-                    return ListView.builder(
+                    return ListView.separated(
                       itemCount: cities.length,
                       itemBuilder: (context, index) => ListTile(
+                        leading: CircleAvatar(
+                          child: Text(cities[index][0]),
+                          backgroundColor: Colors.black,
+                        ),
                         title: Text(cities[index]),
                         onTap: () {
                           context.pop(cities[index]);
                         },
                       ),
+                      separatorBuilder: (context, index) => Divider(),
                     );
                   },
                 );
@@ -61,7 +68,8 @@ class _CreateTaskState extends State<CreateTask> {
               },
             ),
             if (selectedCity != null)
-              InkWell(
+              SelectionTile(
+                label: "Project",
                 onTap: () async {
                   final project = await showModalBottomSheet<String>(
                     isScrollControlled: true,
@@ -75,21 +83,79 @@ class _CreateTaskState extends State<CreateTask> {
                         ),
                         Project(title: "Hotder", subtitle: "Başka Bir Firma"),
                       ];
+                      String search = "";
+                      return StatefulBuilder(
+                        builder: (context, setModalState) {
+                          final filteredProjects = projects
+                              .where(
+                                (project) =>
+                                    project.title.toLowerCase().contains(
+                                      search.toLowerCase(),
+                                    ) ||
+                                    project.subtitle.toLowerCase().contains(
+                                      search.toLowerCase(),
+                                    ),
+                              )
+                              .toList();
 
-                      return ListView.separated(
-                        itemCount: projects.length,
-                        separatorBuilder: (context, index) => Divider(),
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            leading: CircleAvatar(
-                              child: Text(projects[index].title[0]),
-                              backgroundColor: Colors.black,
+                          return Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 50,
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.white.withValues(
+                                            alpha: 0.5,
+                                          ),
+                                        ),
+                                      ),
+                                      hintText: "Ara",
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.white.withValues(
+                                            alpha: 0.1,
+                                          ),
+                                        ),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                    ),
+                                    onChanged: (value) {
+                                      setModalState(() {
+                                        search = value;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                SizedBox(height: 12),
+                                Expanded(
+                                  child: ListView.builder(
+                                    itemCount: filteredProjects.length,
+
+                                    itemBuilder: (context, index) {
+                                      final item = filteredProjects[index];
+                                      return ListTile(
+                                        leading: CircleAvatar(
+                                          child: Text(item.title[0]),
+                                          backgroundColor: Colors.black,
+                                        ),
+                                        title: Text(item.title),
+                                        subtitle: Text(item.subtitle),
+                                        onTap: () {
+                                          context.pop(item.title);
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
-                            title: Text(projects[index].title),
-                            subtitle: Text(projects[index].subtitle),
-                            onTap: () {
-                              Navigator.pop(context, projects[index].title);
-                            },
                           );
                         },
                       );
@@ -102,25 +168,11 @@ class _CreateTaskState extends State<CreateTask> {
                     });
                   }
                 },
-                child: Container(
-                  height: 50,
-                  width: double.infinity,
-                  margin: EdgeInsets.only(top: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      selectedProject ?? "Proje Seçiniz",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ),
-                ),
+                value: selectedProject,
               ),
             if (selectedProject != null)
-              InkWell(
+              SelectionTile(
+                label: "Departman",
                 onTap: () async {
                   final departman = await showModalBottomSheet(
                     isScrollControlled: true,
@@ -155,65 +207,15 @@ class _CreateTaskState extends State<CreateTask> {
                     });
                   }
                 },
-                child: Container(
-                  height: 50,
-                  width: double.infinity,
-                  margin: EdgeInsets.only(top: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      selectedDepartman ?? "Proje Seçiniz",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ),
-                ),
+                value: selectedDepartman,
               ),
             SizedBox(height: 10),
             if (selectedDepartman != null) ...[
-              SizedBox(
-                height: 50,
-                child: TextField(
-                  controller: taskNameController,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(
-                      vertical: 5,
-                      horizontal: 5,
-                    ),
-                    hintText: "Görev Adı",
-                    hintStyle: Theme.of(context).textTheme.bodyMedium,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                    filled: true,
-                    fillColor: Colors.white.withValues(alpha: 0.1),
-                  ),
-                ),
-              ),
+              TaskName(title: "Görev adı", controller: taskNameController),
               SizedBox(height: 10),
-              SizedBox(
-                height: 50,
-                child: TextField(
-                  controller: taskExplainController,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 5,
-                      vertical: 5,
-                    ),
-                    hintText: "Görev Açıklaması",
-                    hintStyle: Theme.of(context).textTheme.bodyMedium,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                    filled: true,
-                    fillColor: Colors.white.withValues(alpha: 0.1),
-                  ),
-                ),
+              TaskName(
+                title: "Görev tanımı",
+                controller: taskExplainController,
               ),
               SizedBox(height: 20),
               ElevatedButton(
@@ -230,6 +232,37 @@ class _CreateTaskState extends State<CreateTask> {
               ),
             ],
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class TaskName extends StatelessWidget {
+  final String title;
+  final TextEditingController controller;
+
+  const TaskName({super.key, required this.title, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 5,
+            horizontal: 5,
+          ),
+          hintText: title,
+          hintStyle: Theme.of(context).textTheme.bodyMedium,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none,
+          ),
+          filled: true,
+          fillColor: Colors.white.withValues(alpha: 0.1),
         ),
       ),
     );

@@ -82,7 +82,6 @@ class _TaskViewState extends State<TaskView> {
                           ).scaffoldBackgroundColor,
                           context: context,
                           builder: (context) {
-                            int? selectedIndex;
                             return StatefulBuilder(
                               builder: (context, setModalState) {
                                 return SizedBox(
@@ -103,7 +102,9 @@ class _TaskViewState extends State<TaskView> {
                                             ),
                                             Spacer(),
                                             IconButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                context.pop();
+                                              },
                                               icon: Icon(
                                                 Icons.close,
                                                 fontWeight: FontWeight.bold,
