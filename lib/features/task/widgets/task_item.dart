@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:taskforuszehra/core/route/app_route_name.dart';
-
 class TaskItem {
   final String title;
   final String subtitle;

@@ -21,10 +21,11 @@ class _PermissionViewState extends State<PermissionView> {
         appBar: CustomAppBar(
           title: "İzinlerim",
           height: 120,
-          leading: Icon(
-            Icons.arrow_back_ios_new,
-            color: Colors.white,
-            size: 20,
+          leading: IconButton(
+            onPressed: () {
+              context.goNamed(AppRouteName.navigator.name);
+            },
+            icon: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 20),
           ),
           bottom: TabBar(
             labelColor: Colors.white,

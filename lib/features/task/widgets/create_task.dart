@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taskforuszehra/core/route/app_route_name.dart';
 import 'package:taskforuszehra/core/widgets/appbar.dart';
+import 'package:taskforuszehra/features/task/widgets/task_item.dart';
 
 class CreateTask extends StatefulWidget {
   const CreateTask({super.key});
@@ -11,13 +13,16 @@ class CreateTask extends StatefulWidget {
 
 class _CreateTaskState extends State<CreateTask> {
   String? selectedCity;
+  String? selectedProject;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         title: "Görev Talebi Oluştur",
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            context.goNamed(AppRouteName.navigator.name);
+          },
           icon: Icon(Icons.arrow_back_ios_rounded),
         ),
       ),
@@ -76,6 +81,58 @@ class _CreateTaskState extends State<CreateTask> {
                 ),
               ),
             ),
+            if (selectedCity != null)
+              InkWell(
+                onTap: () async {
+                  final project = await showModalBottomSheet<String>(
+                    context: context,
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    builder: (context) {
+                      List<TaskItem> projects = [
+                        TaskItem(
+                          title: "Colder",
+                          subtitle: "Harputlu Otomotiv Ltd.şti.",
+                        ),
+                        TaskItem(title: "Hotder", subtitle: "Başka Bir Firma"),
+                      ];
+
+                      return ListView.separated(
+                        itemCount: projects.length,
+                        separatorBuilder: (_, __) => Divider(),
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(projects[index].title),
+                            subtitle: Text(projects[index].subtitle),
+                            onTap: () {
+                              Navigator.pop(context, projects[index].title);
+                            },
+                          );
+                        },
+                      );
+                    },
+                  );
+
+                  if (project != null) {
+                    print("Seçilen proje: $project");
+                  }
+                },
+                child: Container(
+                  height: 50,
+                  width: double.infinity,
+                  margin: EdgeInsets.only(top: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      selectedProject ?? "Proje Seçiniz",
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ),
+                ),
+              ),
           ],
         ),
       ),

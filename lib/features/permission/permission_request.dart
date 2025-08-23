@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:taskforuszehra/core/route/app_route_name.dart';
 import 'package:taskforuszehra/core/widgets/appbar.dart';
 
 class PermissionRequest extends StatefulWidget {
@@ -11,7 +13,7 @@ class PermissionRequest extends StatefulWidget {
 
 class _PermissionRequestState extends State<PermissionRequest> {
   String selectedOption = "Gün";
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController controller = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   final TextEditingController dateController2 = TextEditingController();
@@ -42,7 +44,14 @@ class _PermissionRequestState extends State<PermissionRequest> {
     return Scaffold(
       appBar: CustomAppBar(
         title: "İzin Talepi Oluştur",
-        leading: Icon(Icons.arrow_back_ios, size: 20),
+        leading: IconButton(
+          onPressed: () {
+            context.goNamed(
+              AppRouteName.permission.name,
+            ); //Şimdilik ShellRoute oluşturulacak
+          },
+          icon: Icon(Icons.arrow_back_ios_new_outlined),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -57,7 +66,6 @@ class _PermissionRequestState extends State<PermissionRequest> {
               decoration: InputDecoration(
                 labelText: "İzin Türü",
                 labelStyle: TextStyle(color: Colors.grey),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -119,21 +127,21 @@ class _PermissionRequestState extends State<PermissionRequest> {
             selectedOption == "Gün"
                 ? Column(
                     children: [
-                      CustomInputField(
+                      TextFieldWidget(
                         isDate: true,
                         isTime: false,
                         label: "Başlangıç Tarihi",
                         controller: dateController,
                       ),
                       SizedBox(height: 10),
-                      CustomInputField(
+                      TextFieldWidget(
                         isDate: true,
                         isTime: false,
                         label: "Bitiş Tarihi",
                         controller: dateController2,
                       ),
                       SizedBox(height: 10),
-                      CustomInputField(
+                      TextFieldWidget(
                         isDate: false,
                         isTime: false,
                         label: "Açıklama",
@@ -183,28 +191,28 @@ class _PermissionRequestState extends State<PermissionRequest> {
                  ) */
                 : Column(
                     children: [
-                      CustomInputField(
+                      TextFieldWidget(
                         label: "Tarih",
                         controller: dateController,
                         isDate: true,
                         isTime: false,
                       ),
                       SizedBox(height: 20),
-                      CustomInputField(
+                      TextFieldWidget(
                         label: "Başlangıç Saati",
                         controller: clock,
                         isDate: false,
                         isTime: true,
                       ),
                       SizedBox(height: 20),
-                      CustomInputField(
+                      TextFieldWidget(
                         label: "Bitiş Saati",
                         controller: clock2,
                         isDate: false,
                         isTime: true,
                       ),
                       SizedBox(height: 20),
-                      CustomInputField(
+                      TextFieldWidget(
                         label: "Açıklama",
                         controller: nameController,
                         isDate: false,
@@ -233,7 +241,7 @@ class _PermissionRequestState extends State<PermissionRequest> {
     );
   }
 }
-
+/*
 class TextFieldWidget extends StatelessWidget {
   final String label;
   final TextEditingController controller;
@@ -257,15 +265,15 @@ class TextFieldWidget extends StatelessWidget {
       ),
     );
   }
-}
+}   */
 
-class CustomInputField extends StatefulWidget {
+class TextFieldWidget extends StatefulWidget {
   final String label;
   final TextEditingController controller;
   final bool isDate;
   final bool isTime;
 
-  const CustomInputField({
+  const TextFieldWidget({
     super.key,
     required this.label,
     required this.controller,
@@ -274,10 +282,10 @@ class CustomInputField extends StatefulWidget {
   });
 
   @override
-  State<CustomInputField> createState() => _CustomInputFieldState();
+  State<TextFieldWidget> createState() => _TextFieldWidgetState();
 }
 
-class _CustomInputFieldState extends State<CustomInputField> {
+class _TextFieldWidgetState extends State<TextFieldWidget> {
   Future<void> _selectDate() async {
     final DateTime? picked = await showDatePicker(
       context: context,
