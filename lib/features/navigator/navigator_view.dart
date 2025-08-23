@@ -1,35 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:taskforuszehra/features/activies/view/activities_view.dart';
-import 'package:taskforuszehra/features/home/view/home_view.dart';
+import 'package:go_router/go_router.dart';
 import 'package:taskforuszehra/features/navigator/view/widgets/navigator_widgets.dart';
-import 'package:taskforuszehra/features/settings/settings_view.dart';
-import 'package:taskforuszehra/features/task/task_view.dart';
 
-class BottomNavigator extends StatefulWidget {
-  const BottomNavigator({super.key});
+class BottomNavigator extends StatelessWidget {
+  final StatefulNavigationShell navigationShell;
 
-  @override
-  State<BottomNavigator> createState() => _BottomNavigatorState();
-}
-
-class _BottomNavigatorState extends State<BottomNavigator> {
-  int _selectedIndex = 0;
-
-  final List<Widget> pages = const [
-    HomeView(),
-    TaskView(),
-    ActivitiesView(),
-    SettingsView(),
-  ];
+  const BottomNavigator({super.key, required this.navigationShell});
 
   void onTabItem(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    navigationShell.goBranch(
+      index,
+      initialLocation: index == navigationShell.currentIndex,
+    );
+    {}
   }
 
   Widget buildTabIcon(IconData icon, int index) {
-    bool isSelected = _selectedIndex == index;
+    bool isSelected = navigationShell == index;
     return GestureDetector(
       onTap: () => onTabItem(index),
       child: Container(
@@ -62,7 +49,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[_selectedIndex],
+      body: navigationShell,
       bottomNavigationBar: Container(
         margin: const EdgeInsets.all(20),
         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -83,12 +70,12 @@ class _BottomNavigatorState extends State<BottomNavigator> {
           children: [
             TabIcon(
               icon: Icons.home,
-              isSelected: _selectedIndex == 0,
+              isSelected: navigationShell.currentIndex == 0,
               onTap: () => onTabItem(0),
             ),
             TabIcon(
               icon: Icons.assignment,
-              isSelected: _selectedIndex == 1,
+              isSelected: navigationShell.currentIndex == 1,
               onTap: () => onTabItem(1),
             ),
             Container(
@@ -102,12 +89,12 @@ class _BottomNavigatorState extends State<BottomNavigator> {
             ),
             TabIcon(
               icon: Icons.work,
-              isSelected: _selectedIndex == 2,
+              isSelected: navigationShell.currentIndex == 2,
               onTap: () => onTabItem(2),
             ),
             TabIcon(
               icon: Icons.settings,
-              isSelected: _selectedIndex == 3,
+              isSelected: navigationShell.currentIndex == 3,
               onTap: () => onTabItem(3),
             ),
           ],

@@ -102,7 +102,7 @@ class _HomeViewState extends State<HomeView> {
                   subtitle: item.subtitle,
                   icon: item.icon,
                   onTap: () {
-                    context.goNamed(item.route.name);
+                    context.push(item.route);
                   },
                 );
               },

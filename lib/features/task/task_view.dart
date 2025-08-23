@@ -309,9 +309,7 @@ class _TaskViewState extends State<TaskView> {
                 ),
                 SizedBox(width: 10),
                 InkWell(
-                  onTap: () {
-                    context.goNamed(AppRouteName.task_create.name);
-                  },
+                  onTap: () {},
                   child: Container(
                     height: 40,
                     width: 140,

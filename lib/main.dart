@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taskforuszehra/core/route/app_route.dart';
+import 'package:taskforuszehra/core/route/app_route_name.dart';
 import 'package:taskforuszehra/core/theme/app_theme.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Task for Us Zehra",
       theme: AppTheme.theme,
-      routerConfig: AppRoute.router,
+      routerConfig: router,
     );
   }
 }

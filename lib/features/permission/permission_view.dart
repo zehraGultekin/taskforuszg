@@ -22,9 +22,7 @@ class _PermissionViewState extends State<PermissionView> {
           title: "İzinlerim",
           height: 120,
           leading: IconButton(
-            onPressed: () {
-              context.goNamed(AppRouteName.navigator.name);
-            },
+            onPressed: () {},
             icon: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 20),
           ),
           bottom: TabBar(
@@ -52,9 +50,7 @@ class _PermissionViewState extends State<PermissionView> {
           height: 40,
           width: 160,
           child: FloatingActionButton(
-            onPressed: () {
-              context.goNamed(AppRouteName.permission_request.name);
-            },
+            onPressed: () {},
             backgroundColor: Theme.of(context).colorScheme.surface,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadiusGeometry.circular(20),

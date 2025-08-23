@@ -5,7 +5,7 @@ class MenuItem {
   final IconData icon;
   final String title;
   final String subtitle;
-  final AppRouteName route;
+  final String route;
 
   const MenuItem({
     required this.icon,
@@ -14,18 +14,18 @@ class MenuItem {
     required this.route,
   });
 
-  static const List<MenuItem> items = [
+  static final List<MenuItem> items = [
     MenuItem(
       icon: Icons.calendar_today,
       title: "İzinlerim",
       subtitle: "İzin talepleri ve izin geçmişi",
-      route: AppRouteName.permission,
+      route: Routes.permission,
     ),
     MenuItem(
       icon: Icons.play_circle_outline_sharp,
       title: "İşe Başla",
       subtitle: "Mesai başlatma ve bitiş işlemleri",
-      route: AppRouteName.home,
+      route: Routes.homeView,
     ),
   ];
 }

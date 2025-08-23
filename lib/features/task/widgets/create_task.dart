@@ -24,9 +24,7 @@ class _CreateTaskState extends State<CreateTask> {
       appBar: CustomAppBar(
         title: "Görev Talebi Oluştur",
         leading: IconButton(
-          onPressed: () {
-            context.goNamed(AppRouteName.navigator.name);
-          },
+          onPressed: () {},
           icon: Icon(Icons.arrow_back_ios_rounded),
         ),
       ),

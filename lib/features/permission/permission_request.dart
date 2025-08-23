@@ -45,11 +45,7 @@ class _PermissionRequestState extends State<PermissionRequest> {
       appBar: CustomAppBar(
         title: "İzin Talepi Oluştur",
         leading: IconButton(
-          onPressed: () {
-            context.goNamed(
-              AppRouteName.permission.name,
-            ); //Şimdilik ShellRoute oluşturulaca
-          },
+          onPressed: () {},
           icon: Icon(Icons.arrow_back_ios_new_outlined),
         ),
       ),
