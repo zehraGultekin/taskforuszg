@@ -6,6 +6,6 @@ class Routes {
   static const String permission = '/permission';
   static const String settings = '/settings';
   static const String task = '/task';
-  static const String createPermission = '/createPermission';
+  static const String createPermission = 'createPermission';
   static const String createTask = 'createtask';
 }

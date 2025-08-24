@@ -4,7 +4,7 @@ import 'package:taskforuszehra/core/route/app_route_name.dart';
 import 'package:taskforuszehra/features/home/view/home_view.dart';
 import 'package:taskforuszehra/features/navigator/navigator_view.dart';
 import 'package:taskforuszehra/features/permission/permission_request.dart';
-import 'package:taskforuszehra/features/permission/permission_view.dart';
+import 'package:taskforuszehra/features/permission/view/permission_view.dart';
 import 'package:taskforuszehra/features/task/task_view.dart';
 import 'package:taskforuszehra/features/task/view/create_task_view.dart';
 

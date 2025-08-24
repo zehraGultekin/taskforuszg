@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
-import 'package:taskforuszehra/core/route/app_route_name.dart';
 import 'package:taskforuszehra/core/widgets/appbar.dart';
+import 'package:taskforuszehra/features/permission/domain/entities/permisson_model.dart';
+import 'package:taskforuszehra/features/permission/view/widgets/permission_textfield.dart';
 
 class PermissionRequest extends StatefulWidget {
   const PermissionRequest({super.key});
@@ -45,7 +45,9 @@ class _PermissionRequestState extends State<PermissionRequest> {
       appBar: CustomAppBar(
         title: "İzin Talepi Oluştur",
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            context.pop();
+          },
           icon: Icon(Icons.arrow_back_ios_new_outlined),
         ),
       ),
@@ -128,220 +130,172 @@ class _PermissionRequestState extends State<PermissionRequest> {
             selectedOption == "Gün"
                 ? Column(
                     children: [
-                      TextFieldWidget(
+                      PermissionTextField(
                         isDate: true,
                         isTime: false,
                         label: "Başlangıç Tarihi",
                         controller: dateController,
                       ),
                       SizedBox(height: 10),
-                      TextFieldWidget(
+                      PermissionTextField(
                         isDate: true,
                         isTime: false,
                         label: "Bitiş Tarihi",
                         controller: dateController2,
                       ),
                       SizedBox(height: 10),
-                      TextFieldWidget(
+                      PermissionTextField(
                         isDate: false,
                         isTime: false,
                         label: "Açıklama",
                         controller: nameController,
                       ),
-                      SizedBox(height: 10),
-                      Container(
-                        height: 50,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surface,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Gönder",
-                            style: Theme.of(context).textTheme.bodyLarge,
+                      SizedBox(height: 20),
+                      GestureDetector(
+                        onTap: () {
+                          final newPermission = PermissionModel(
+                            id: items.length + 1,
+                            name: nameController.text,
+                            status: PermissionStatus.pending,
+                          );
+                          setState(() {
+                            items.add(newPermission);
+                          });
+
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text("Başarılı"),
+                              content: Text("İzin talebi oluşturuldu"),
+                              backgroundColor: Theme.of(
+                                context,
+                              ).scaffoldBackgroundColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: BorderSide(color: Colors.white),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    context.pop();
+                                    context.pop(newPermission);
+                                  },
+                                  child: Text(
+                                    "Tamam",
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 50,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surface,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Gönder",
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
                           ),
                         ),
                       ),
                     ],
                   )
-                /* Column(
-                    children: [
-                      TextFormField(
-                        controller: _controller,
-                        readOnly: true,
-                        onTap: _selectedDate,
-                        decoration: InputDecoration(
-                          labelText: "Bitiş Tarihi",
-                          labelStyle: TextStyle(color: Colors.grey),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                        ),
-                      ),
-                    ],
-                 ) */
                 : Column(
                     children: [
-                      TextFieldWidget(
+                      PermissionTextField(
                         label: "Tarih",
                         controller: dateController,
                         isDate: true,
                         isTime: false,
                       ),
                       SizedBox(height: 20),
-                      TextFieldWidget(
+                      PermissionTextField(
                         label: "Başlangıç Saati",
                         controller: clock,
                         isDate: false,
                         isTime: true,
                       ),
                       SizedBox(height: 20),
-                      TextFieldWidget(
+                      PermissionTextField(
                         label: "Bitiş Saati",
                         controller: clock2,
                         isDate: false,
                         isTime: true,
                       ),
                       SizedBox(height: 20),
-                      TextFieldWidget(
+                      PermissionTextField(
                         label: "Açıklama",
                         controller: nameController,
                         isDate: false,
                         isTime: false,
                       ),
                       SizedBox(height: 20),
-                      Container(
-                        height: 50,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surface,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Gönder",
-                            style: Theme.of(context).textTheme.bodyLarge,
+                      GestureDetector(
+                        onTap: () {
+                          final newPermission = PermissionModel(
+                            id: items.length + 1,
+                            name: nameController.text,
+                            status: PermissionStatus.pending,
+                          );
+                          setState(() {
+                            items.add(newPermission);
+                          });
+
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text("Başarılı"),
+                              content: Text("İzin talebi oluşturuldu"),
+                              backgroundColor: Theme.of(
+                                context,
+                              ).scaffoldBackgroundColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: BorderSide(color: Colors.white),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    context.pop();
+                                    context.pop(newPermission);
+                                  },
+                                  child: Text(
+                                    "Tamam",
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 50,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surface,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Gönder",
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
           ],
-        ),
-      ),
-    );
-  }
-}
-/*
-class TextFieldWidget extends StatelessWidget {
-  final String label;
-  final TextEditingController controller;
-  final VoidCallback? onTap;
-
-  const TextFieldWidget({
-    super.key,
-    required this.label,
-    required this.controller,
-    this.onTap,
-  });
-  @override
-  Widget build(BuildContext contex) {
-    return TextFormField(
-      controller: controller,
-      readOnly: onTap != null,
-      onTap: onTap,
-      decoration: InputDecoration(
-        labelText: label,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-      ),
-    );
-  }
-}   */
-
-class TextFieldWidget extends StatefulWidget {
-  final String label;
-  final TextEditingController controller;
-  final bool isDate;
-  final bool isTime;
-
-  const TextFieldWidget({
-    super.key,
-    required this.label,
-    required this.controller,
-    required this.isDate,
-    required this.isTime,
-  });
-
-  @override
-  State<TextFieldWidget> createState() => _TextFieldWidgetState();
-}
-
-class _TextFieldWidgetState extends State<TextFieldWidget> {
-  Future<void> _selectDate() async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
-    );
-
-    if (picked != null) {
-      widget.controller.text = DateFormat("dd/MM/yyyy").format(picked);
-    }
-  }
-
-  Future<void> _selectTime() async {
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-    );
-
-    if (picked != null) {
-      widget.controller.text = picked.format(context);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: widget.controller,
-      readOnly: widget.isDate || widget.isTime,
-      onTap: () async {
-        if (widget.isDate) {
-          _selectDate();
-        } else if (widget.isTime) {
-          _selectTime();
-        }
-      },
-      decoration: InputDecoration(
-        labelText: widget.label,
-        labelStyle: const TextStyle(color: Colors.grey),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide: const BorderSide(color: Colors.grey),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide: const BorderSide(color: Colors.grey),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide: const BorderSide(color: Colors.grey),
-        ),
-
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 12,
         ),
       ),
     );

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:taskforuszehra/core/widgets/appbar.dart';
-import 'package:taskforuszehra/features/task/data/models/project_item.dart';
 import 'package:taskforuszehra/features/task/data/models/task_item.dart';
-import 'package:taskforuszehra/features/task/domain/entities/project.dart';
+import 'package:taskforuszehra/features/task/domain/entities/project_model.dart';
 import 'package:taskforuszehra/features/task/view/widgets/input_selection.dart';
 import 'package:taskforuszehra/features/task/view/widgets/task_input.dart';
 

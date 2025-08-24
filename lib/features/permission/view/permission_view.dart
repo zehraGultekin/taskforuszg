@@ -1,0 +1,84 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:taskforuszehra/core/route/app_route_name.dart';
+import 'package:taskforuszehra/core/widgets/appbar.dart';
+import 'package:taskforuszehra/features/permission/domain/entities/permisson_model.dart';
+import 'package:taskforuszehra/features/permission/view/widgets/permission_list.dart';
+
+class PermissionView extends StatefulWidget {
+  const PermissionView({super.key});
+
+  @override
+  State<PermissionView> createState() => _PermissionViewState();
+}
+
+class _PermissionViewState extends State<PermissionView> {
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: CustomAppBar(
+          title: "İzinlerim",
+          height: 120,
+          leading: IconButton(
+            onPressed: () {
+              context.pop();
+            },
+            icon: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 20),
+          ),
+          bottom: TabBar(
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white,
+            indicatorColor: Colors.black,
+            enableFeedback: false,
+
+            tabs: [
+              Tab(text: "Onaylanan"),
+              Tab(text: "Beklenen"),
+              Tab(text: "Reddedilen"),
+            ],
+          ),
+        ),
+
+        body: Padding(
+          padding: EdgeInsetsGeometry.symmetric(vertical: 20),
+          child: TabBarView(
+            children: [
+              PermissionList(status: PermissionStatus.approved),
+              PermissionList(status: PermissionStatus.pending),
+              PermissionList(status: PermissionStatus.rejected),
+            ],
+          ),
+        ),
+
+        floatingActionButton: SizedBox(
+          height: 40,
+          width: 160,
+          child: FloatingActionButton(
+            onPressed: () {
+              GoRouter.of(
+                context,
+              ).push('${Routes.permission}/${Routes.createPermission}');
+            },
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadiusGeometry.circular(20),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.add, color: Colors.white),
+                SizedBox(width: 5),
+                Text(
+                  "İzin Talebi Oluştur",
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
