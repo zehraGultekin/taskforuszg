@@ -121,7 +121,7 @@ class _PermissionRequestState extends ConsumerState<PermissionRequest> {
 
             SizedBox(height: 20),
 
-            timeProvider == "Gün"
+            ref.watch(timeProvider) == "Gün"
                 ? Column(
                     children: [
                       PermissionTextField(
