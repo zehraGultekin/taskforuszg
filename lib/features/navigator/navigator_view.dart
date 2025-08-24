@@ -8,42 +8,8 @@ class BottomNavigator extends StatelessWidget {
   const BottomNavigator({super.key, required this.navigationShell});
 
   void onTabItem(int index) {
-    navigationShell.goBranch(
-      index,
-      initialLocation: index == navigationShell.currentIndex,
-    );
+    navigationShell.goBranch(index);
     {}
-  }
-
-  Widget buildTabIcon(IconData icon, int index) {
-    bool isSelected = navigationShell == index;
-    return GestureDetector(
-      onTap: () => onTabItem(index),
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? Colors.white.withValues(alpha: 0.2)
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(12),
-
-          boxShadow: isSelected
-              ? [
-                  BoxShadow(
-                    color: Colors.grey.withValues(alpha: 0.3),
-                    blurRadius: 4,
-                    offset: Offset(0, 2),
-                  ),
-                ]
-              : [],
-        ),
-        child: Icon(
-          icon,
-          size: 28,
-          color: isSelected ? Colors.white : Colors.grey,
-        ),
-      ),
-    );
   }
 
   @override

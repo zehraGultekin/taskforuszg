@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:taskforuszehra/core/widgets/appbar.dart';
 import 'package:taskforuszehra/features/task/data/models/task_item.dart';
-import 'package:taskforuszehra/features/task/domain/entities/project_model.dart';
+import 'package:taskforuszehra/features/task/data/models/project_model.dart';
 import 'package:taskforuszehra/features/task/view/widgets/input_selection.dart';
 import 'package:taskforuszehra/features/task/view/widgets/task_input.dart';
 
@@ -92,10 +92,10 @@ class _CreateTaskState extends State<CreateTask> {
                           final filteredProjects = projects
                               .where(
                                 (project) =>
-                                    project.title!.toLowerCase().contains(
+                                    project.title.toLowerCase().contains(
                                       search.toLowerCase(),
                                     ) ||
-                                    project.subtitle!.toLowerCase().contains(
+                                    project.subtitle.toLowerCase().contains(
                                       search.toLowerCase(),
                                     ),
                               )

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taskforuszehra/core/route/app_route_name.dart';
 import 'package:taskforuszehra/core/widgets/appbar.dart';
-import 'package:taskforuszehra/features/permission/domain/entities/permisson_model.dart';
+import 'package:taskforuszehra/features/permission/data/models/permisson_model.dart';
 import 'package:taskforuszehra/features/permission/view/widgets/permission_list.dart';
 
 class PermissionView extends StatefulWidget {
@@ -57,9 +57,7 @@ class _PermissionViewState extends State<PermissionView> {
           width: 160,
           child: FloatingActionButton(
             onPressed: () {
-              GoRouter.of(
-                context,
-              ).push('${Routes.permission}/${Routes.createPermission}');
+              context.pushNamed(Routes.createPermission);
             },
             backgroundColor: Theme.of(context).colorScheme.surface,
             shape: RoundedRectangleBorder(

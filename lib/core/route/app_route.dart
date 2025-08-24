@@ -22,6 +22,7 @@ final router = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
+              name: Routes.homeView,
               path: Routes.homeView,
               builder: (context, state) => HomeView(),
               routes: [],
@@ -31,10 +32,12 @@ final router = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
+              name: Routes.task,
               path: Routes.task,
               builder: (context, state) => TaskView(),
               routes: [
                 GoRoute(
+                  name: Routes.createTask,
                   path: Routes.createTask,
                   builder: (context, state) => CreateTask(),
                   parentNavigatorKey: _rootNavigatorKey,
@@ -47,10 +50,12 @@ final router = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
+              name: Routes.permission,
               path: Routes.permission,
               builder: (context, state) => PermissionView(),
               routes: [
                 GoRoute(
+                  name: Routes.createPermission,
                   path: Routes.createPermission,
                   builder: (context, state) => PermissionRequest(),
                   parentNavigatorKey: _rootNavigatorKey,

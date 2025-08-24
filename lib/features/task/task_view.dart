@@ -24,7 +24,11 @@ class _TaskViewState extends State<TaskView> {
         actions: [
           IconButton(
             icon: Icon(Icons.refresh, color: Colors.white),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                taskList.clear();
+              });
+            },
           ),
         ],
       ),
@@ -252,21 +256,24 @@ class _TaskViewState extends State<TaskView> {
                                             children: [
                                               Expanded(
                                                 flex: 1,
-                                                child: Container(
-                                                  height: 40,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                          10,
-                                                        ),
-                                                    color: Colors.red,
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Temizle",
-                                                      style: Theme.of(
-                                                        context,
-                                                      ).textTheme.bodyLarge,
+                                                child: InkWell(
+                                                  onTap: () {},
+                                                  child: Container(
+                                                    height: 40,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                            10,
+                                                          ),
+                                                      color: Colors.red,
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        "Temizle",
+                                                        style: Theme.of(
+                                                          context,
+                                                        ).textTheme.bodyLarge,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -313,10 +320,9 @@ class _TaskViewState extends State<TaskView> {
                 SizedBox(width: 10),
                 InkWell(
                   onTap: () async {
-                    final TaskItem? newTask = await GoRouter.of(
-                      context,
-                    ).push('${Routes.task}/${Routes.createTask}');
-
+                    final TaskItem? newTask = await context.pushNamed(
+                      Routes.createTask,
+                    );
                     if (newTask != null) {
                       setState(() {
                         taskList.add(newTask);
