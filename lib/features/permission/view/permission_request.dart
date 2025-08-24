@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taskforuszehra/core/widgets/appbar.dart';
-import 'package:taskforuszehra/features/permission/domain/entities/permisson_model.dart';
+import 'package:taskforuszehra/features/permission/data/models/permisson_model.dart';
+import 'package:taskforuszehra/features/permission/provider/permission_request_provider.dart';
 import 'package:taskforuszehra/features/permission/view/widgets/permission_textfield.dart';
 
-class PermissionRequest extends StatefulWidget {
+class PermissionRequest extends ConsumerStatefulWidget {
   const PermissionRequest({super.key});
 
   @override
-  State<PermissionRequest> createState() => _PermissionRequestState();
+  ConsumerState<PermissionRequest> createState() => _PermissionRequestState();
 }
 
-class _PermissionRequestState extends State<PermissionRequest> {
-  String selectedOption = "Gün";
+class _PermissionRequestState extends ConsumerState<PermissionRequest> {
   final TextEditingController controller = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   final TextEditingController dateController2 = TextEditingController();
   final TextEditingController clock = TextEditingController();
   final TextEditingController clock2 = TextEditingController();
-
   final TextEditingController timeController = TextEditingController();
 
   final List<String> type = [
@@ -38,7 +38,7 @@ class _PermissionRequestState extends State<PermissionRequest> {
     "Ücretli İzin",
     "Diğer",
   ];
-  String selectedValue = 'Yıllık İzin';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +59,7 @@ class _PermissionRequestState extends State<PermissionRequest> {
             SizedBox(height: 10),
             DropdownButtonFormField(
               dropdownColor: Theme.of(context).scaffoldBackgroundColor,
-              initialValue: selectedValue,
+              initialValue: ref.watch(selectedPermissionType),
               isExpanded: true,
               decoration: InputDecoration(
                 labelText: "İzin Türü",
@@ -81,9 +81,7 @@ class _PermissionRequestState extends State<PermissionRequest> {
                 return DropdownMenuItem<String>(value: e, child: Text(e));
               }).toList(),
               onChanged: (value) {
-                setState(() {
-                  selectedValue = value!;
-                });
+                ref.read(selectedPermissionType.notifier).state = value!;
               },
             ),
             SizedBox(height: 10),
@@ -96,12 +94,10 @@ class _PermissionRequestState extends State<PermissionRequest> {
                   children: [
                     Radio(
                       value: "Gün",
-                      groupValue: selectedOption,
+                      groupValue: ref.watch(timeProvider),
                       activeColor: Colors.white,
                       onChanged: (value) {
-                        setState(() {
-                          selectedOption = value!;
-                        });
+                        ref.read(timeProvider.notifier).state = value!;
                       },
                     ),
                     const Text("Gün"),
@@ -111,12 +107,10 @@ class _PermissionRequestState extends State<PermissionRequest> {
                   children: [
                     Radio(
                       value: "Saat",
-                      groupValue: selectedOption,
+                      groupValue: ref.watch(timeProvider),
                       activeColor: Colors.white,
                       onChanged: (value) {
-                        setState(() {
-                          selectedOption = value!;
-                        });
+                        ref.read(timeProvider.notifier).state = value!;
                       },
                     ),
                     const Text("Saat"),
@@ -127,7 +121,7 @@ class _PermissionRequestState extends State<PermissionRequest> {
 
             SizedBox(height: 20),
 
-            selectedOption == "Gün"
+            timeProvider == "Gün"
                 ? Column(
                     children: [
                       PermissionTextField(
@@ -154,13 +148,12 @@ class _PermissionRequestState extends State<PermissionRequest> {
                       GestureDetector(
                         onTap: () {
                           final newPermission = PermissionModel(
-                            id: items.length + 1,
                             name: nameController.text,
                             status: PermissionStatus.pending,
                           );
-                          setState(() {
-                            items.add(newPermission);
-                          });
+                          ref
+                              .read(permissionRequestProvider.notifier)
+                              .addPermission(newPermission);
 
                           showDialog(
                             context: context,
@@ -241,13 +234,12 @@ class _PermissionRequestState extends State<PermissionRequest> {
                       GestureDetector(
                         onTap: () {
                           final newPermission = PermissionModel(
-                            id: items.length + 1,
                             name: nameController.text,
                             status: PermissionStatus.pending,
                           );
-                          setState(() {
-                            items.add(newPermission);
-                          });
+                          ref
+                              .read(permissionRequestProvider.notifier)
+                              .addPermission(newPermission);
 
                           showDialog(
                             context: context,

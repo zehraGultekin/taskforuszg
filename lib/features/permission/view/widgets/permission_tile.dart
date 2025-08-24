@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:taskforuszehra/features/permission/domain/entities/permisson_model.dart';
+import 'package:taskforuszehra/features/permission/data/models/permisson_model.dart';
 
 class Permissionwidget extends StatelessWidget {
-  final int id;
   final String name;
   final PermissionStatus status;
 
-  const Permissionwidget({
-    super.key,
-    required this.id,
-    required this.name,
-    required this.status,
-  });
+  const Permissionwidget({super.key, required this.name, required this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +18,7 @@ class Permissionwidget extends StatelessWidget {
       ),
       child: ListTile(
         dense: true,
-        leading: Text(id.toString()),
+
         title: Text(name, style: Theme.of(context).textTheme.bodyLarge),
         subtitle: Text(
           status.name,

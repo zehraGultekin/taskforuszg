@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taskforuszehra/features/permission/domain/entities/permisson_model.dart';
+import 'package:taskforuszehra/features/permission/data/models/permisson_model.dart';
 import 'package:taskforuszehra/features/permission/view/widgets/permission_tile.dart';
 
 class PermissionList extends StatelessWidget {
@@ -13,11 +13,7 @@ class PermissionList extends StatelessWidget {
     return ListView.builder(
       itemCount: data.length,
       itemBuilder: (context, index) {
-        return Permissionwidget(
-          id: data[index].id,
-          name: data[index].name,
-          status: status,
-        );
+        return Permissionwidget(name: data[index].name, status: status);
       },
     );
   }
