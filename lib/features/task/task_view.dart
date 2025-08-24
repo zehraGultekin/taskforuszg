@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taskforuszehra/core/route/app_route_name.dart';
 import 'package:taskforuszehra/core/widgets/appbar.dart';
-import 'package:taskforuszehra/features/task/widgets/task_item.dart';
-import 'package:taskforuszehra/features/task/widgets/task_widget.dart';
+import 'package:taskforuszehra/features/task/data/models/project_item.dart';
+import 'package:taskforuszehra/features/task/data/models/task_item.dart';
+import 'package:taskforuszehra/features/task/view/widgets/task_widget.dart';
 
 class TaskView extends StatefulWidget {
   const TaskView({super.key});
@@ -13,6 +14,7 @@ class TaskView extends StatefulWidget {
 }
 
 class _TaskViewState extends State<TaskView> {
+  List<TaskItem> taskList = [];
   int? selectedIndex;
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class _TaskViewState extends State<TaskView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TaskWidget(
-                icon: Icons.calendar_view_day,
+                icon: Icons.pending_actions,
                 number: "0",
                 title: "Tamamlanmayı",
                 subtitle: "Bekleyen",
@@ -48,7 +50,7 @@ class _TaskViewState extends State<TaskView> {
               ),
               SizedBox(width: 10),
               TaskWidget(
-                icon: Icons.person_add_disabled,
+                icon: Icons.person_off,
                 title: "Alınmayı",
                 subtitle: "Bekleyen",
                 number: "5",
@@ -62,8 +64,8 @@ class _TaskViewState extends State<TaskView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Icon(Icons.task_rounded, size: 30, color: Colors.white),
-                SizedBox(width: 5),
+                Icon(Icons.assignment_outlined, size: 30, color: Colors.white),
+                SizedBox(width: 10),
                 Text(
                   "Görevler",
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -147,9 +149,10 @@ class _TaskViewState extends State<TaskView> {
                                         SizedBox(height: 10),
                                         Expanded(
                                           child: ListView.separated(
-                                            itemCount: TaskItem.task.length,
+                                            itemCount: ProjectItem.task.length,
                                             itemBuilder: (context, index) {
-                                              final item = TaskItem.task[index];
+                                              final item =
+                                                  ProjectItem.task[index];
                                               final bool isSelected =
                                                   selectedIndex == index;
                                               return InkWell(
@@ -303,13 +306,23 @@ class _TaskViewState extends State<TaskView> {
                         );
                       },
 
-                      child: Icon(Icons.filter),
+                      child: Icon(Icons.filter_list),
                     ),
                   ],
                 ),
                 SizedBox(width: 10),
                 InkWell(
-                  onTap: () {},
+                  onTap: () async {
+                    final TaskItem? newTask = await GoRouter.of(
+                      context,
+                    ).push('${Routes.task}/${Routes.createTask}');
+
+                    if (newTask != null) {
+                      setState(() {
+                        taskList.add(newTask);
+                      });
+                    }
+                  },
                   child: Container(
                     height: 40,
                     width: 140,
@@ -329,6 +342,36 @@ class _TaskViewState extends State<TaskView> {
                   ),
                 ),
               ],
+            ),
+          ),
+          SizedBox(height: 20),
+          Expanded(
+            child: ListView.builder(
+              itemCount: taskList.length,
+              itemBuilder: (context, index) {
+                final item = taskList[index];
+                return Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: Colors.grey.withValues(alpha: 0.4),
+                    ),
+                  ),
+                  child: ListTile(
+                    title: Text(
+                      item.title,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    subtitle: Text(
+                      item.subtitle,
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodySmall?.copyWith(color: Colors.grey),
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ],

@@ -50,7 +50,9 @@ class _PermissionViewState extends State<PermissionView> {
           height: 40,
           width: 160,
           child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              context.push(Routes.createPermission);
+            },
             backgroundColor: Theme.of(context).colorScheme.surface,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadiusGeometry.circular(20),

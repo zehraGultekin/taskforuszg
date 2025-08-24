@@ -3,8 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:taskforuszehra/core/route/app_route_name.dart';
 import 'package:taskforuszehra/features/home/view/home_view.dart';
 import 'package:taskforuszehra/features/navigator/navigator_view.dart';
+import 'package:taskforuszehra/features/permission/permission_request.dart';
 import 'package:taskforuszehra/features/permission/permission_view.dart';
 import 'package:taskforuszehra/features/task/task_view.dart';
+import 'package:taskforuszehra/features/task/view/create_task_view.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 
@@ -28,14 +30,36 @@ final router = GoRouter(
         ),
         StatefulShellBranch(
           routes: [
-            GoRoute(path: Routes.task, builder: (context, state) => TaskView()),
+            GoRoute(
+              path: Routes.task,
+              builder: (context, state) => TaskView(),
+              routes: [
+                GoRoute(
+                  path: Routes.createTask,
+                  builder: (context, state) => CreateTask(),
+                  parentNavigatorKey: _rootNavigatorKey,
+                ),
+              ],
+            ),
+          ],
+        ),
+
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: Routes.permission,
+              builder: (context, state) => PermissionView(),
+              routes: [
+                GoRoute(
+                  path: Routes.createPermission,
+                  builder: (context, state) => PermissionRequest(),
+                  parentNavigatorKey: _rootNavigatorKey,
+                ),
+              ],
+            ),
           ],
         ),
       ],
-    ),
-    GoRoute(
-      path: Routes.permission,
-      builder: (context, state) => PermissionView(),
     ),
   ],
 );

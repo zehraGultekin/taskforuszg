@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:taskforuszehra/core/route/app_route_name.dart';
+
 import 'package:taskforuszehra/core/widgets/appbar.dart';
-import 'package:taskforuszehra/features/task/widgets/task_item.dart';
+import 'package:taskforuszehra/features/task/data/models/project_item.dart';
+import 'package:taskforuszehra/features/task/data/models/task_item.dart';
+import 'package:taskforuszehra/features/task/domain/entities/project.dart';
+import 'package:taskforuszehra/features/task/view/widgets/input_selection.dart';
+import 'package:taskforuszehra/features/task/view/widgets/task_input.dart';
 
 class CreateTask extends StatefulWidget {
   const CreateTask({super.key});
@@ -24,7 +28,9 @@ class _CreateTaskState extends State<CreateTask> {
       appBar: CustomAppBar(
         title: "Görev Talebi Oluştur",
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            context.pop();
+          },
           icon: Icon(Icons.arrow_back_ios_rounded),
         ),
       ),
@@ -46,8 +52,8 @@ class _CreateTaskState extends State<CreateTask> {
                       itemCount: cities.length,
                       itemBuilder: (context, index) => ListTile(
                         leading: CircleAvatar(
-                          child: Text(cities[index][0]),
                           backgroundColor: Colors.black,
+                          child: Text(cities[index][0]),
                         ),
                         title: Text(cities[index]),
                         onTap: () {
@@ -87,10 +93,10 @@ class _CreateTaskState extends State<CreateTask> {
                           final filteredProjects = projects
                               .where(
                                 (project) =>
-                                    project.title.toLowerCase().contains(
+                                    project.title!.toLowerCase().contains(
                                       search.toLowerCase(),
                                     ) ||
-                                    project.subtitle.toLowerCase().contains(
+                                    project.subtitle!.toLowerCase().contains(
                                       search.toLowerCase(),
                                     ),
                               )
@@ -140,8 +146,8 @@ class _CreateTaskState extends State<CreateTask> {
                                       final item = filteredProjects[index];
                                       return ListTile(
                                         leading: CircleAvatar(
-                                          child: Text(item.title[0]),
                                           backgroundColor: Colors.black,
+                                          child: Text(item.title[0]),
                                         ),
                                         title: Text(item.title),
                                         subtitle: Text(item.subtitle),
@@ -184,8 +190,8 @@ class _CreateTaskState extends State<CreateTask> {
                         itemBuilder: (context, index) {
                           return ListTile(
                             leading: CircleAvatar(
-                              child: Text(departman[index][0]),
                               backgroundColor: Colors.black,
+                              child: Text(departman[index][0]),
                             ),
                             title: Text(departman[index]),
                             onTap: () {
@@ -209,16 +215,49 @@ class _CreateTaskState extends State<CreateTask> {
               ),
             SizedBox(height: 10),
             if (selectedDepartman != null) ...[
-              TaskName(title: "Görev adı", controller: taskNameController),
+              TaskInputField(
+                title: "Görev adı",
+                controller: taskNameController,
+              ),
               SizedBox(height: 10),
-              TaskName(
+              TaskInputField(
                 title: "Görev tanımı",
                 controller: taskExplainController,
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {},
-                child: Text("Gönder"),
+                onPressed: () {
+                  final newTask = TaskItem(
+                    title: taskNameController.text,
+                    subtitle: taskExplainController.text,
+                  );
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text("Başarılı"),
+                      content: Text("Görev oluşturuldu"),
+                      backgroundColor: Theme.of(
+                        context,
+                      ).scaffoldBackgroundColor,
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(color: Colors.white),
+                        borderRadius: BorderRadiusGeometry.circular(10),
+                      ),
+                      actions: [
+                        ElevatedButton(
+                          onPressed: () {
+                            context.pop();
+                            context.pop(newTask);
+                          },
+                          child: Text(
+                            "Tamam",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white.withValues(alpha: 0.1),
                   maximumSize: Size(150, 50),
@@ -227,73 +266,10 @@ class _CreateTaskState extends State<CreateTask> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
+                child: Text("Gönder"),
               ),
             ],
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class TaskName extends StatelessWidget {
-  final String title;
-  final TextEditingController controller;
-
-  const TaskName({super.key, required this.title, required this.controller});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      child: TextField(
-        controller: controller,
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: 5,
-            horizontal: 5,
-          ),
-          hintText: title,
-          hintStyle: Theme.of(context).textTheme.bodyMedium,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide.none,
-          ),
-          filled: true,
-          fillColor: Colors.white.withValues(alpha: 0.1),
-        ),
-      ),
-    );
-  }
-}
-
-class SelectionTile extends StatelessWidget {
-  final String label;
-  final String? value;
-  final VoidCallback onTap;
-
-  const SelectionTile({
-    super.key,
-    required this.label,
-    this.value,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(Object context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        height: 50,
-        width: double.infinity,
-        margin: EdgeInsets.only(top: 10),
-        decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(10),
-          child: Text(value ?? label),
         ),
       ),
     );
