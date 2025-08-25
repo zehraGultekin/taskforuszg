@@ -279,15 +279,39 @@ class _TaskViewState extends State<TaskView> {
                                                 },
                                           ),
                                         ),
-                                        if (selectedIndex != null) ...[
+                                        if (selectedIndex == null)
+                                          Container(
+                                            height: 50,
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey.withValues(
+                                                alpha: 0.1,
+                                              ),
+
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "Proje Seç",
+                                                style: Theme.of(
+                                                  context,
+                                                ).textTheme.bodyLarge,
+                                              ),
+                                            ),
+                                          )
+                                        else ...[
                                           Row(
                                             children: [
                                               Expanded(
                                                 flex: 1,
                                                 child: InkWell(
-                                                  onTap: () {},
+                                                  onTap: () {
+                                                    context.pop();
+                                                    selectedIndex = null;
+                                                  },
                                                   child: Container(
-                                                    height: 40,
+                                                    height: 45,
                                                     decoration: BoxDecoration(
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -309,21 +333,27 @@ class _TaskViewState extends State<TaskView> {
                                               SizedBox(width: 5),
                                               Expanded(
                                                 flex: 2,
-                                                child: Container(
-                                                  height: 40,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                          10,
-                                                        ),
-                                                    color: Colors.green,
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Projeye Göre Filtrele",
-                                                      style: Theme.of(
-                                                        context,
-                                                      ).textTheme.bodyLarge,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    context.pop();
+                                                    selectedIndex = null;
+                                                  },
+                                                  child: Container(
+                                                    height: 45,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                            10,
+                                                          ),
+                                                      color: Colors.green,
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        "Projeye Göre Filtrele",
+                                                        style: Theme.of(
+                                                          context,
+                                                        ).textTheme.bodyLarge,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),

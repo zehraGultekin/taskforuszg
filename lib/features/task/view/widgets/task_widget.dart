@@ -25,13 +25,16 @@ class TaskWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: 130,
+        height: 110,
         width: 120,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           color: Theme.of(context).colorScheme.surface,
 
-          border: Border.all(color: isSelected ? Colors.blue : Colors.red),
+          border: Border.all(
+            color: isSelected ? Colors.blue : Colors.transparent,
+            width: 2,
+          ),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.1),
@@ -46,7 +49,7 @@ class TaskWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Icon(icon, size: 30, color: color),
-            SizedBox(height: 8),
+
             Text(
               number,
               style: TextStyle(
@@ -55,7 +58,7 @@ class TaskWidget extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 8),
+
             Text(title, style: TextStyle(color: Colors.white, fontSize: 12)),
             Text(subtitle, style: TextStyle(color: Colors.white, fontSize: 12)),
           ],
