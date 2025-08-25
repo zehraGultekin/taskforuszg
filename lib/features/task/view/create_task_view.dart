@@ -42,8 +42,7 @@ class _CreateTaskState extends State<CreateTask> {
               value: selectedCity,
               onTap: () async {
                 final city = await showModalBottomSheet(
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  isScrollControlled: true,
+                  backgroundColor: Theme.of(context).colorScheme.surface,
                   context: context,
                   builder: (context) {
                     List<String> cities = ["Adana", "Hatay", "Mersin"];
@@ -75,9 +74,8 @@ class _CreateTaskState extends State<CreateTask> {
                 label: "Project",
                 onTap: () async {
                   final project = await showModalBottomSheet<String>(
-                    isScrollControlled: true,
                     context: context,
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
                     builder: (context) {
                       List<Project> projects = [
                         Project(
@@ -138,7 +136,7 @@ class _CreateTaskState extends State<CreateTask> {
                                 ),
                                 SizedBox(height: 12),
                                 Expanded(
-                                  child: ListView.builder(
+                                  child: ListView.separated(
                                     itemCount: filteredProjects.length,
 
                                     itemBuilder: (context, index) {
@@ -155,6 +153,13 @@ class _CreateTaskState extends State<CreateTask> {
                                         },
                                       );
                                     },
+                                    separatorBuilder:
+                                        (BuildContext context, int index) =>
+                                            Divider(
+                                              color: Colors.white.withValues(
+                                                alpha: 0.1,
+                                              ),
+                                            ),
                                   ),
                                 ),
                               ],

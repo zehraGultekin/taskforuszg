@@ -68,11 +68,11 @@ class _PermissionRequestState extends ConsumerState<PermissionRequest> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 2),
+                  borderSide: BorderSide(color: Colors.white, width: 1.5),
                 ),
 
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 2),
+                  borderSide: BorderSide(color: Colors.white, width: 1.5),
                 ),
               ),
 
@@ -86,7 +86,7 @@ class _PermissionRequestState extends ConsumerState<PermissionRequest> {
             ),
             SizedBox(height: 10),
             Text("Zaman Birimi", style: Theme.of(context).textTheme.bodyMedium),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -103,6 +103,7 @@ class _PermissionRequestState extends ConsumerState<PermissionRequest> {
                     const Text("Gün"),
                   ],
                 ),
+
                 Row(
                   children: [
                     Radio(
@@ -119,7 +120,7 @@ class _PermissionRequestState extends ConsumerState<PermissionRequest> {
               ],
             ),
 
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             ref.watch(timeProvider) == "Gün"
                 ? Column(
@@ -244,7 +245,6 @@ class _PermissionRequestState extends ConsumerState<PermissionRequest> {
                           ref
                               .read(permissionRequestProvider.notifier)
                               .addPermission(newPermission);
-
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
