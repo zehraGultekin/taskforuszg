@@ -53,8 +53,8 @@ class _PermissionViewState extends State<PermissionView> {
         ),
 
         floatingActionButton: SizedBox(
-          height: 40,
-          width: 160,
+          height: 35,
+          width: 180,
           child: FloatingActionButton(
             onPressed: () {
               context.pushNamed(Routes.createPermissionName);
