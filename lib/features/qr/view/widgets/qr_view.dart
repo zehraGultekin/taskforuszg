@@ -1,5 +1,3 @@
-import 'dart:async'; //araştır
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -14,7 +12,7 @@ class QrView extends StatefulWidget {
 }
 
 class _QrViewState extends State<QrView> with SingleTickerProviderStateMixin {
-  String qrData = "https://www.example.com";
+  String qrData = "https://www.ornek.com";
   late AnimationController _controller;
 
   @override
@@ -29,7 +27,7 @@ class _QrViewState extends State<QrView> with SingleTickerProviderStateMixin {
       if (status == AnimationStatus.completed) {
         setState(() {
           qrData =
-              "https://www.example.com?time=${DateTime.now().millisecondsSinceEpoch}";
+              "https://www.ornek.com?time=${DateTime.now().millisecondsSinceEpoch}";
         });
         _controller.reset();
         _controller.forward();
@@ -258,7 +256,8 @@ class _QrViewState extends State<QrView> with SingleTickerProviderStateMixin {
                           onTap: () {
                             setState(() {
                               qrData =
-                                  "https://www.example.com?time=${DateTime.now().millisecondsSinceEpoch}";
+                                  "https://www.ornek.com?time=${DateTime.now().millisecondsSinceEpoch}";
+                              _controller.reverseDuration;
                             });
                           },
                           child: Icon(Icons.refresh, size: 15),

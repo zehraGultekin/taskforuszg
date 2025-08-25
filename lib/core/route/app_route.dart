@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taskforuszehra/core/route/app_route_name.dart';
+import 'package:taskforuszehra/features/activies/view/activities_view.dart';
 import 'package:taskforuszehra/features/home/view/home_view.dart';
 import 'package:taskforuszehra/features/navigator/navigator_view.dart';
 import 'package:taskforuszehra/features/permission/view/permission_request.dart';
@@ -51,17 +52,10 @@ final router = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              name: Routes.permissionName,
-              path: Routes.permission,
-              builder: (context, state) => PermissionView(),
-              routes: [
-                GoRoute(
-                  name: Routes.createPermissionName,
-                  path: Routes.createPermission,
-                  builder: (context, state) => PermissionRequest(),
-                  parentNavigatorKey: _rootNavigatorKey,
-                ),
-              ],
+              name: Routes.activityName,
+              path: Routes.activity,
+              builder: (context, state) => ActivitiesView(),
+              routes: [],
             ),
           ],
         ),
