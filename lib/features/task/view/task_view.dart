@@ -16,6 +16,7 @@ class TaskView extends StatefulWidget {
 class _TaskViewState extends State<TaskView> {
   int? selectedTaskWidget;
   List<TaskItem> taskList = [];
+  List<ProjectItem> filterList = [];
   int? selectedIndex;
   @override
   Widget build(BuildContext context) {
@@ -100,7 +101,7 @@ class _TaskViewState extends State<TaskView> {
                 SizedBox(width: 10),
                 Text(
                   "Görevler",
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
@@ -148,6 +149,19 @@ class _TaskViewState extends State<TaskView> {
                                         ),
                                         SizedBox(height: 10),
                                         TextField(
+                                          onChanged: (String value) {
+                                            setModalState(() {
+                                              filterList = ProjectItem.task
+                                                  .where(
+                                                    (project) => project.title
+                                                        .toLowerCase()
+                                                        .contains(
+                                                          value.toLowerCase(),
+                                                        ),
+                                                  )
+                                                  .toList();
+                                            });
+                                          },
                                           decoration: InputDecoration(
                                             hintText: "Proje Ara...",
                                             hintStyle: TextStyle(
@@ -155,6 +169,7 @@ class _TaskViewState extends State<TaskView> {
                                             ),
                                             prefixIcon: IconButton(
                                               onPressed: () {},
+
                                               icon: Icon(Icons.search),
                                             ),
                                             filled: true,
@@ -172,6 +187,7 @@ class _TaskViewState extends State<TaskView> {
                                             ),
                                           ),
                                         ),
+                                        SizedBox(height: 10),
                                         Divider(
                                           color: Colors.white,
                                           endIndent: 5,
@@ -375,7 +391,7 @@ class _TaskViewState extends State<TaskView> {
                     ),
                   ],
                 ),
-                SizedBox(width: 10),
+                SizedBox(width: 20),
                 InkWell(
                   onTap: () async {
                     final TaskItem? newTask = await context.pushNamed(
@@ -388,16 +404,16 @@ class _TaskViewState extends State<TaskView> {
                     }
                   },
                   child: Container(
-                    height: 40,
-                    width: 140,
+                    height: 35,
+                    width: 150,
                     decoration: BoxDecoration(
-                      color: Colors.green,
+                      color: const Color.fromARGB(255, 58, 173, 64),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
                       child: Text(
-                        "+ Yeni Görev",
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        "+    Yeni Görev",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.onSurface,
                         ),
@@ -410,33 +426,70 @@ class _TaskViewState extends State<TaskView> {
           ),
           SizedBox(height: 20),
           Expanded(
-            child: ListView.builder(
-              itemCount: taskList.length,
-              itemBuilder: (context, index) {
-                final item = taskList[index];
-                return Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: Colors.grey.withValues(alpha: 0.4),
-                    ),
+            child: taskList.isEmpty
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        selectedTaskWidget == 0
+                            ? Icons.pending_actions
+                            : selectedTaskWidget == 1
+                            ? Icons.check_circle_outline
+                            : Icons.person_off,
+
+                        size: 50,
+                      ),
+
+                      SizedBox(height: 10),
+                      Text(
+                        selectedTaskWidget == 0
+                            ? "Tamamlanmayı"
+                            : selectedTaskWidget == 1
+                            ? "Başarıyla"
+                            : selectedTaskWidget == 2
+                            ? "Alınmayı"
+                            : "",
+                      ),
+                      Text(
+                        selectedTaskWidget == 0
+                            ? "bekleyen görev bulunmuyor"
+                            : selectedTaskWidget == 1
+                            ? "Tamamlanan görev bulunmuyor"
+                            : selectedTaskWidget == 2
+                            ? "bekleyen görev bulunmuyor"
+                            : "",
+                      ),
+                    ],
+                  )
+                : ListView.builder(
+                    itemCount: taskList.length,
+                    itemBuilder: (context, index) {
+                      final item = taskList[index];
+                      return Container(
+                        height: 80,
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.surface,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.green, width: 2),
+                        ),
+                        child: ListTile(
+                          title: Text(
+                            item.title,
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          subtitle: Text(
+                            item.subtitle,
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(color: Colors.white),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                  child: ListTile(
-                    title: Text(
-                      item.title,
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    subtitle: Text(
-                      item.subtitle,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodySmall?.copyWith(color: Colors.grey),
-                    ),
-                  ),
-                );
-              },
-            ),
           ),
         ],
       ),

@@ -33,11 +33,18 @@ class MenuItemTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               color: Colors.white.withAlpha(20),
             ),
-            child: Icon(icon, color: Colors.grey),
+            child: Icon(icon, color: Colors.white),
           ),
-          title: Text(title, style: TextTheme().bodyLarge),
-          subtitle: Text(subtitle, style: TextTheme().bodySmall),
-          trailing: Icon(Icons.arrow_forward_ios, size: 20, color: Colors.grey),
+          title: Text(title, style: Theme.of(context).textTheme.bodyLarge),
+          subtitle: Text(
+            subtitle,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          trailing: Icon(
+            Icons.arrow_forward_ios,
+            size: 16,
+            color: Colors.white,
+          ),
         ),
       ),
     );

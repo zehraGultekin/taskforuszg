@@ -6,9 +6,9 @@ class AppTheme {
     splashFactory: NoSplash.splashFactory,
     highlightColor: Colors.transparent,
     textTheme: const TextTheme(
-      bodyLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-      bodyMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-      bodySmall: TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
+      bodyLarge: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+      bodyMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+      bodySmall: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
     ),
 
     scaffoldBackgroundColor: Appcolors.primary,
