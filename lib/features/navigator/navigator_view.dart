@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taskforuszehra/core/route/app_route_name.dart';
 import 'package:taskforuszehra/features/navigator/view/widgets/navigator_widgets.dart';
 
 class BottomNavigator extends StatelessWidget {
@@ -44,14 +45,25 @@ class BottomNavigator extends StatelessWidget {
               isSelected: navigationShell.currentIndex == 1,
               onTap: () => onTabItem(1),
             ),
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.2),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
-                borderRadius: BorderRadius.circular(12),
+            InkWell(
+              onTap: () {
+                context.goNamed(Routes.qrkodName);
+              },
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.2),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.3),
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  Icons.qr_code_scanner,
+                  size: 28,
+                  color: Colors.white,
+                ),
               ),
-              child: Icon(Icons.qr_code_scanner, size: 28, color: Colors.white),
             ),
             TabIcon(
               icon: Icons.work,

@@ -5,6 +5,7 @@ import 'package:taskforuszehra/features/home/view/home_view.dart';
 import 'package:taskforuszehra/features/navigator/navigator_view.dart';
 import 'package:taskforuszehra/features/permission/view/permission_request.dart';
 import 'package:taskforuszehra/features/permission/view/permission_view.dart';
+import 'package:taskforuszehra/features/qr/view/widgets/qr_view.dart';
 import 'package:taskforuszehra/features/task/view/task_view.dart';
 import 'package:taskforuszehra/features/task/view/create_task_view.dart';
 
@@ -61,6 +62,15 @@ final router = GoRouter(
                   parentNavigatorKey: _rootNavigatorKey,
                 ),
               ],
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: Routes.qrkod,
+              name: Routes.qrkodName,
+              builder: (context, state) => QrView(),
             ),
           ],
         ),
