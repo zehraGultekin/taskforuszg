@@ -150,6 +150,8 @@ class _PermissionRequestState extends ConsumerState<PermissionRequest> {
                           final newPermission = PermissionModel(
                             name: nameController.text,
                             status: PermissionStatus.pending,
+                            start: DateTime.tryParse(dateController.text),
+                            end: DateTime.tryParse(dateController2.text),
                           );
                           ref
                               .read(permissionRequestProvider.notifier)
@@ -234,6 +236,8 @@ class _PermissionRequestState extends ConsumerState<PermissionRequest> {
                       GestureDetector(
                         onTap: () {
                           final newPermission = PermissionModel(
+                            start: DateTime.tryParse(dateController.text),
+                            end: DateTime.tryParse(dateController2.text),
                             name: nameController.text,
                             status: PermissionStatus.pending,
                           );

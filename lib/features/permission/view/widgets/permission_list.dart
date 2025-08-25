@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:taskforuszehra/features/permission/data/models/permisson_model.dart';
 
 class PermissionList extends StatelessWidget {
@@ -14,7 +15,6 @@ class PermissionList extends StatelessWidget {
       itemCount: data.length,
       itemBuilder: (context, index) {
         return Container(
-          height: 65,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(15),
@@ -27,13 +27,41 @@ class PermissionList extends StatelessWidget {
                   child: Icon(Icons.calendar_month),
                 ),
                 SizedBox(width: 10),
-                Text(data[index].name),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(data[index].name),
+                    Row(
+                      children: [
+                        Text(
+                          DateFormat('dd.MM.yyyy').format(data[index].start!),
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
+                        ),
+                        Text("-"),
+                        Text(
+                          DateFormat('dd.MM.yyyy').format(data[index].end!),
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ],
             ),
             children: [
               Column(
                 children: [
-                  Text("Açıklama : deneme"),
+                  Text(
+                    "Açıklama :${data[index].status.toString().split('.').last}",
+                  ),
                   Text("Süre : 2 Gün"),
 
                   Row(
