@@ -5,10 +5,10 @@ import 'package:taskforuszehra/features/home/view/home_view.dart';
 import 'package:taskforuszehra/features/navigator/navigator_view.dart';
 import 'package:taskforuszehra/features/permission/view/permission_request.dart';
 import 'package:taskforuszehra/features/permission/view/permission_view.dart';
-import 'package:taskforuszehra/features/task/task_view.dart';
+import 'package:taskforuszehra/features/task/view/task_view.dart';
 import 'package:taskforuszehra/features/task/view/create_task_view.dart';
 
-final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
@@ -22,7 +22,7 @@ final router = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              name: Routes.homeView,
+              name: Routes.homeViewName,
               path: Routes.homeView,
               builder: (context, state) => HomeView(),
               routes: [],
@@ -37,7 +37,7 @@ final router = GoRouter(
               builder: (context, state) => TaskView(),
               routes: [
                 GoRoute(
-                  name: Routes.createTask,
+                  name: Routes.createTaskName,
                   path: Routes.createTask,
                   builder: (context, state) => CreateTask(),
                   parentNavigatorKey: _rootNavigatorKey,
@@ -50,12 +50,12 @@ final router = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              name: Routes.permission,
+              name: Routes.permissionName,
               path: Routes.permission,
               builder: (context, state) => PermissionView(),
               routes: [
                 GoRoute(
-                  name: Routes.createPermission,
+                  name: Routes.createPermissionName,
                   path: Routes.createPermission,
                   builder: (context, state) => PermissionRequest(),
                   parentNavigatorKey: _rootNavigatorKey,

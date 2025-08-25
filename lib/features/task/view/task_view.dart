@@ -14,6 +14,7 @@ class TaskView extends StatefulWidget {
 }
 
 class _TaskViewState extends State<TaskView> {
+  int? selectedTaskWidget;
   List<TaskItem> taskList = [];
   int? selectedIndex;
   @override
@@ -38,27 +39,54 @@ class _TaskViewState extends State<TaskView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TaskWidget(
+                isSelected: selectedTaskWidget == 0,
                 icon: Icons.pending_actions,
                 number: "0",
                 title: "Tamamlanmayı",
                 subtitle: "Bekleyen",
                 color: Colors.amber,
+                onTap: () {
+                  setState(() {
+                    selectedTaskWidget = 0;
+                    taskList = allTasks
+                        .where((e) => e.status == TaskStatus.bekleyen)
+                        .toList();
+                  });
+                },
               ),
               SizedBox(width: 10),
               TaskWidget(
+                isSelected: selectedTaskWidget == 1,
                 icon: Icons.task_alt_outlined,
                 title: "Başarıyla",
                 subtitle: "Tamamlanan",
                 number: "0",
                 color: Colors.green,
+                onTap: () {
+                  setState(() {
+                    selectedTaskWidget = 1;
+                    taskList = allTasks
+                        .where((e) => e.status == TaskStatus.tamamlanan)
+                        .toList();
+                  });
+                },
               ),
               SizedBox(width: 10),
               TaskWidget(
+                isSelected: selectedTaskWidget == 2,
                 icon: Icons.person_off,
                 title: "Alınmayı",
                 subtitle: "Bekleyen",
                 number: "5",
                 color: Colors.grey,
+                onTap: () {
+                  setState(() {
+                    selectedTaskWidget = 2;
+                    taskList = allTasks
+                        .where((e) => e.status == TaskStatus.alinmayan)
+                        .toList();
+                  });
+                },
               ),
             ],
           ),
@@ -321,7 +349,7 @@ class _TaskViewState extends State<TaskView> {
                 InkWell(
                   onTap: () async {
                     final TaskItem? newTask = await context.pushNamed(
-                      Routes.createTask,
+                      Routes.createTaskName,
                     );
                     if (newTask != null) {
                       setState(() {

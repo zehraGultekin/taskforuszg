@@ -227,6 +227,7 @@ class _CreateTaskState extends State<CreateTask> {
               ElevatedButton(
                 onPressed: () {
                   final newTask = TaskItem(
+                    TaskStatus.bekleyen,
                     title: taskNameController.text,
                     subtitle: taskExplainController.text,
                   );
