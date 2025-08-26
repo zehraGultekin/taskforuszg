@@ -56,13 +56,6 @@ class _ActivitiesViewState extends State<ActivitiesView> {
                 ),
               ),
             );
-          } else {
-            List<Widget> activityWidgets = [];
-            for (var activity in day.activities) {
-              activityWidgets.add(
-                ListTile(title: Text(activity.title), subtitle: Text(dateStr)),
-              );
-            }
           }
           return ExpansionTile(
             title: Row(

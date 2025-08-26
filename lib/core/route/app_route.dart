@@ -27,7 +27,20 @@ final router = GoRouter(
               name: Routes.homeViewName,
               path: Routes.homeView,
               builder: (context, state) => HomeView(),
-              routes: [],
+              routes: [
+                GoRoute(
+                  path: Routes.permission,
+                  name: Routes.permissionName,
+                  builder: (context, state) => PermissionView(),
+                  parentNavigatorKey: _rootNavigatorKey,
+                ),
+                GoRoute(
+                  path: Routes.createPermission,
+                  name: Routes.createPermissionName,
+                  builder: (context, state) => PermissionRequest(),
+                  parentNavigatorKey: _rootNavigatorKey,
+                ),
+              ],
             ),
           ],
         ),

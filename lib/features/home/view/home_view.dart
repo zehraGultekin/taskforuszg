@@ -100,10 +100,9 @@ class _HomeViewState extends State<HomeView> {
                 return MenuItemTile(
                   title: item.title,
                   subtitle: item.subtitle,
-
                   icon: item.icon,
                   onTap: () {
-                    context.push(item.route);
+                    context.goNamed(item.route);
                   },
                 );
               },

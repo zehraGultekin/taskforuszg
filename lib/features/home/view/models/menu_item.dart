@@ -19,7 +19,7 @@ class MenuItem {
       icon: Icons.calendar_today,
       title: "İzinlerim",
       subtitle: "İzin talepleri ve izin geçmişi",
-      route: Routes.permission,
+      route: Routes.permissionName,
     ),
     MenuItem(
       icon: Icons.play_circle_outline_sharp,

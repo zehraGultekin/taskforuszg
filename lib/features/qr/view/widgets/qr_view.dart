@@ -257,7 +257,8 @@ class _QrViewState extends State<QrView> with SingleTickerProviderStateMixin {
                             setState(() {
                               qrData =
                                   "https://www.ornek.com?time=${DateTime.now().millisecondsSinceEpoch}";
-                              _controller.reverseDuration;
+                              _controller.reset();
+                              _controller.forward();
                             });
                           },
                           child: Icon(Icons.refresh, size: 15),
