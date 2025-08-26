@@ -13,7 +13,7 @@ class PermissionRequest extends StateNotifier<List<PermissionModel>> {
   PermissionRequest() : super([]);
 
   void addPermission(PermissionModel permission) {
-    final newList = state;
+    final newList = [...state];
     newList.add(permission);
     state = newList;
   }

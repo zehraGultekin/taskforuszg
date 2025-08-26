@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taskforuszehra/core/route/app_route_name.dart';
 import 'package:taskforuszehra/features/activies/view/activities_view.dart';
+import 'package:taskforuszehra/features/activies/view/add_duration.dart';
 import 'package:taskforuszehra/features/home/view/home_view.dart';
 import 'package:taskforuszehra/features/navigator/navigator_view.dart';
 import 'package:taskforuszehra/features/permission/view/permission_request.dart';
@@ -68,7 +69,14 @@ final router = GoRouter(
               name: Routes.activityName,
               path: Routes.activity,
               builder: (context, state) => ActivitiesView(),
-              routes: [],
+              routes: [
+                GoRoute(
+                  path: Routes.addDuration,
+                  name: Routes.addDurationName,
+                  builder: (context, state) => AddDuration(),
+                  parentNavigatorKey: _rootNavigatorKey,
+                ),
+              ],
             ),
           ],
         ),

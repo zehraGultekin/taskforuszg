@@ -10,6 +10,7 @@ class Routes {
   static const String createTask = '/createtask';
   static const String qrkod = '/qrkod';
   static const String activity = '/activity';
+  static const String addDuration = '/addDuration';
 
   static const String homeViewName = 'home';
   static const String loginName = 'login';
@@ -21,4 +22,5 @@ class Routes {
   static const String createTaskName = 'createtask';
   static const String qrkodName = 'qrkod';
   static const String activityName = 'activity';
+  static const String addDurationName = 'addDuration';
 }

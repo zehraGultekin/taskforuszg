@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:taskforuszehra/core/route/app_route_name.dart';
 import 'package:taskforuszehra/core/widgets/appbar.dart';
 import 'package:taskforuszehra/features/activies/data/models/activities_model.dart';
 
@@ -106,7 +108,7 @@ class _ActivitiesViewState extends State<ActivitiesView> {
                     SizedBox(width: 10),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Text(activity.title), Text(dateStr)],
+                      children: [Text(activity.title.title), Text(dateStr)],
                     ),
                     Spacer(),
                     CircleAvatar(child: Text(day.activities.length.toString())),
@@ -121,7 +123,9 @@ class _ActivitiesViewState extends State<ActivitiesView> {
         height: 40,
         width: 140,
         child: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            context.goNamed(Routes.addDurationName);
+          },
           backgroundColor: Colors.blue,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadiusGeometry.circular(10),
