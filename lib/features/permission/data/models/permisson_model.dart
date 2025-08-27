@@ -7,8 +7,8 @@ class PermissionModel {
   final DateTime? start;
 
   PermissionModel({
-    required this.end,
-    required this.start,
+    this.end,
+    this.start,
     required this.name,
     required this.status,
   });
