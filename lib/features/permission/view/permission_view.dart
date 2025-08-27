@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taskforuszehra/core/route/app_route_name.dart';
 import 'package:taskforuszehra/core/widgets/appbar.dart';
 import 'package:taskforuszehra/features/permission/data/models/permisson_model.dart';
+import 'package:taskforuszehra/features/permission/provider/permission_request_provider.dart';
 import 'package:taskforuszehra/features/permission/view/widgets/permission_list.dart';
 
-class PermissionView extends StatefulWidget {
+class PermissionView extends ConsumerStatefulWidget {
   const PermissionView({super.key});
 
   @override
-  State<PermissionView> createState() => _PermissionViewState();
+  ConsumerState<PermissionView> createState() => _PermissionViewState();
 }
 
-class _PermissionViewState extends State<PermissionView> {
+class _PermissionViewState extends ConsumerState<PermissionView> {
   @override
   Widget build(BuildContext context) {
+    final allPermission = ref.watch(permissionProvider);
     return DefaultTabController(
       length: 3,
       child: Scaffold(

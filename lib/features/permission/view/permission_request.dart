@@ -155,7 +155,7 @@ class _PermissionRequestState extends ConsumerState<PermissionRequest> {
                             end: DateTime.tryParse(dateController2.text),
                           );
                           ref
-                              .read(permissionRequestProvider.notifier)
+                              .read(permissionProvider.notifier)
                               .addPermission(newPermission);
 
                           showDialog(
@@ -236,15 +236,6 @@ class _PermissionRequestState extends ConsumerState<PermissionRequest> {
                       SizedBox(height: 20),
                       GestureDetector(
                         onTap: () {
-                          final newPermission = PermissionModel(
-                            start: DateTime.tryParse(dateController.text),
-                            end: DateTime.tryParse(dateController2.text),
-                            name: nameController.text,
-                            status: PermissionStatus.pending,
-                          );
-                          ref
-                              .read(permissionRequestProvider.notifier)
-                              .addPermission(newPermission);
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
@@ -260,9 +251,27 @@ class _PermissionRequestState extends ConsumerState<PermissionRequest> {
                               actions: [
                                 TextButton(
                                   onPressed: () {
+                                    final newPermission = PermissionModel(
+                                      start: DateTime.tryParse(
+                                        dateController.text,
+                                      ),
+                                      end: DateTime.tryParse(
+                                        dateController2.text,
+                                      ),
+                                      name: nameController.text,
+                                      status: PermissionStatus.pending,
+                                    );
+                                    ref
+                                        .read(permissionProvider.notifier)
+                                        .addPermission(newPermission);
+                                    ref
+                                        .read(permissionProvider.notifier)
+                                        .addPermission(newPermission);
+
                                     context.pop();
-                                    context.pop(newPermission);
+                                    context.pop();
                                   },
+
                                   child: Text(
                                     "Tamam",
                                     style: Theme.of(

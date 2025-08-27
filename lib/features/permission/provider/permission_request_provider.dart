@@ -1,20 +1,18 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:taskforuszehra/features/permission/data/models/permisson_model.dart';
 
-final timeProvider = StateProvider<String>((ref) => "Gün");
+final timeProvider = StateProvider<String?>((ref) => null);
 final selectedPermissionType = StateProvider<String>((ref) => "Yıllık İzin");
 
-final permissionRequestProvider =
-    StateNotifierProvider<PermissionRequest, List<PermissionModel>>((ref) {
-      return PermissionRequest();
-    });
+final permissionProvider =
+    StateNotifierProvider<PermissionNotifier, List<PermissionModel>>(
+      (ref) => PermissionNotifier(),
+    );
 
-class PermissionRequest extends StateNotifier<List<PermissionModel>> {
-  PermissionRequest() : super([]);
+class PermissionNotifier extends StateNotifier<List<PermissionModel>> {
+  PermissionNotifier() : super(List.from(items));
 
-  void addPermission(PermissionModel permission) {
-    final newList = [...state];
-    newList.add(permission);
-    state = newList;
+  void addPermission(PermissionModel permisson) {
+    state = [...state, permisson];
   }
 }

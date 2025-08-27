@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:taskforuszehra/features/permission/data/models/permisson_model.dart';
+import 'package:taskforuszehra/features/permission/provider/permission_request_provider.dart';
 
-class PermissionList extends StatelessWidget {
+class PermissionList extends ConsumerWidget {
   final PermissionStatus status;
   const PermissionList({super.key, required this.status});
 
   @override
-  Widget build(BuildContext context) {
-    final data = filter(status);
-
+  Widget build(BuildContext context, WidgetRef ref) {
+    final allPermissions = ref.watch(permissionProvider);
+    final data = allPermissions
+        .where((element) => element.status == status)
+        .toList();
     return ListView.builder(
       padding: EdgeInsets.symmetric(horizontal: 10),
       itemCount: data.length,
@@ -34,22 +38,14 @@ class PermissionList extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          DateFormat('dd.MM.yyyy').format(data[index].start!),
-                          style: Theme.of(context).textTheme.bodySmall
-                              ?.copyWith(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),
+                          data[index].start != null
+                              ? DateFormat(
+                                  'yyyy,MM,dd',
+                                ).format(data[index].start!)
+                              : "-",
                         ),
+
                         Text("-"),
-                        Text(
-                          DateFormat('dd.MM.yyyy').format(data[index].end!),
-                          style: Theme.of(context).textTheme.bodySmall
-                              ?.copyWith(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),
-                        ),
                       ],
                     ),
                   ],
