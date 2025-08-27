@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taskforuszehra/core/widgets/appbar.dart';
 import 'package:taskforuszehra/features/activies/data/models/activities_model.dart';
+import 'package:taskforuszehra/features/activies/providers/add_duration.dart';
 import 'package:taskforuszehra/features/activies/view/widgets/activity_choose.dart';
 
 class AddDuration extends ConsumerStatefulWidget {
@@ -14,33 +15,28 @@ class AddDuration extends ConsumerStatefulWidget {
 
 class _AddDurationState extends ConsumerState<AddDuration> {
   TimeOfDay? startActivity;
-  ActivitiesType? selectedType;
   TimeOfDay? endActivity;
   final TextEditingController controller = TextEditingController();
 
   Future<void> _startActivity() async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
-      initialTime: startActivity ?? TimeOfDay.now(),
+      initialTime: ref.read(startTimeProvider) ?? TimeOfDay.now(),
     );
 
     if (picked != null) {
-      setState(() {
-        startActivity = picked;
-      });
+      ref.read(startTimeProvider.notifier).state = picked;
     }
   }
 
   Future<void> _endActivity() async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
-      initialTime: endActivity ?? TimeOfDay.now(),
+      initialTime: ref.read(endTimeProvider) ?? TimeOfDay.now(),
     );
 
     if (picked != null) {
-      setState(() {
-        endActivity = picked;
-      });
+      ref.read(endTimeProvider.notifier).state = picked;
     }
   }
 
@@ -52,6 +48,9 @@ class _AddDurationState extends ConsumerState<AddDuration> {
 
   @override
   Widget build(BuildContext context) {
+    final selectedType = ref.watch(selectedActivityType);
+    final startTime = ref.watch(startTimeProvider);
+    final endTime = ref.watch(endTimeProvider);
     return Scaffold(
       appBar: CustomAppBar(
         title: "Aktivite Ekle",
@@ -76,9 +75,8 @@ class _AddDurationState extends ConsumerState<AddDuration> {
               children: [
                 InkWell(
                   onTap: () {
-                    setState(() {
-                      selectedType = ActivitiesType.mola;
-                    });
+                    ref.read(selectedActivityType.notifier).state =
+                        ActivitiesType.mola;
                   },
                   child: ActivityCard(
                     type: ActivitiesType.mola,
@@ -88,9 +86,8 @@ class _AddDurationState extends ConsumerState<AddDuration> {
                 SizedBox(width: 10),
                 InkWell(
                   onTap: () {
-                    setState(() {
-                      selectedType = ActivitiesType.ogleArasi;
-                    });
+                    ref.read(selectedActivityType.notifier).state =
+                        ActivitiesType.ogleArasi;
                   },
                   child: ActivityCard(
                     type: ActivitiesType.ogleArasi,
@@ -102,9 +99,8 @@ class _AddDurationState extends ConsumerState<AddDuration> {
             SizedBox(height: 10),
             InkWell(
               onTap: () {
-                setState(() {
-                  selectedType = ActivitiesType.serbestZaman;
-                });
+                ref.read(selectedActivityType.notifier).state =
+                    ActivitiesType.serbestZaman;
               },
               child: ActivityCard(
                 type: ActivitiesType.serbestZaman,
@@ -134,15 +130,15 @@ class _AddDurationState extends ConsumerState<AddDuration> {
                         ).colorScheme.surface.withValues(alpha: 0.3),
                       ),
                       child: InkWell(
-                        onTap: _startActivity,
+                        onTap: () => _startActivity(),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(Icons.access_time),
                             SizedBox(width: 10),
                             Text(
-                              startActivity != null
-                                  ? formatTime(startActivity!)
+                              startTime != null
+                                  ? formatTime(startTime)
                                   : "Saat seçin",
                               style: TextStyle(fontSize: 16),
                             ),
@@ -173,15 +169,15 @@ class _AddDurationState extends ConsumerState<AddDuration> {
                         ).colorScheme.surface.withValues(alpha: 0.3),
                       ),
                       child: InkWell(
-                        onTap: _endActivity,
+                        onTap: () => _endActivity(),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(Icons.access_time),
                             SizedBox(width: 10),
                             Text(
-                              endActivity != null
-                                  ? formatTime(endActivity!)
+                              endTime != null
+                                  ? formatTime(endTime)
                                   : "Saat seçin",
                               style: TextStyle(fontSize: 16),
                             ),
