@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:taskforuszehra/core/route/app_route_name.dart';
 import 'package:taskforuszehra/core/widgets/appbar.dart';
 import 'package:taskforuszehra/features/activies/data/models/activities_model.dart';
+import 'package:taskforuszehra/features/activies/providers/add_Provider.dart';
 
-class ActivitiesView extends StatefulWidget {
+class ActivitiesView extends ConsumerStatefulWidget {
   const ActivitiesView({super.key});
 
   @override
-  State<ActivitiesView> createState() => _ActivitiesViewState();
+  ConsumerState<ActivitiesView> createState() => _ActivitiesViewState();
 }
 
-class _ActivitiesViewState extends State<ActivitiesView> {
+class _ActivitiesViewState extends ConsumerState<ActivitiesView> {
   @override
   Widget build(BuildContext context) {
+    final allActivity = ref.watch(dailyActivityProvider);
     return Scaffold(
       appBar: CustomAppBar(title: "Aktivitelerim"),
       body: ListView.builder(

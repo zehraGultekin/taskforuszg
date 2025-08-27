@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taskforuszehra/core/widgets/appbar.dart';
 import 'package:taskforuszehra/features/activies/data/models/activities_model.dart';
-import 'package:taskforuszehra/features/activies/providers/add_duration.dart';
+import 'package:taskforuszehra/features/activies/providers/add_Provider.dart';
 import 'package:taskforuszehra/features/activies/view/widgets/activity_choose.dart';
 
 class AddDuration extends ConsumerStatefulWidget {
@@ -229,7 +229,31 @@ class _AddDurationState extends ConsumerState<AddDuration> {
                   ),
                 ),
 
-                onPressed: () {},
+                onPressed: () {
+                  final type = ref.read(selectedActivityType);
+                  final start = ref.read(startTimeProvider);
+                  final end = ref.read(endTimeProvider);
+
+                  final now = DateTime.now();
+                  final startDateTime = DateTime(now.year, now.month, now.day);
+                  final endDateTime = DateTime(now.year, now.month, now.day);
+
+                  if (type == null || start == null || end == null) return;
+                  final newActivity = ActivitiesModel(
+                    type,
+                    startDateTime,
+                    endDateTime,
+                  );
+
+                  ref
+                      .read(dailyActivityProvider.notifier)
+                      .addActivity(
+                        DateTime(now.year, now.month, now.day),
+                        newActivity,
+                      );
+                  context.pop();
+                },
+
                 child: Text(
                   "Kaydet",
                   style: Theme.of(context).textTheme.bodyMedium,
