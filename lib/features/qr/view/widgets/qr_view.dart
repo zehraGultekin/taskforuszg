@@ -224,7 +224,7 @@ class _QrViewState extends State<QrView> with SingleTickerProviderStateMixin {
                                 horizontal: 10,
                               ),
                               child: LinearProgressIndicator(
-                                value: 1 - _controller.value,
+                                value: ReverseAnimation(_controller).value,
                                 minHeight: 2,
                                 backgroundColor: Theme.of(
                                   context,

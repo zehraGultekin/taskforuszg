@@ -5,3 +5,4 @@ import 'package:taskforuszehra/features/activies/data/models/activities_model.da
 final selectedActivityType = StateProvider<ActivitiesType?>((ref) => null);
 final startTimeProvider = StateProvider<TimeOfDay?>((ref) => null);
 final endTimeProvider = StateProvider<TimeOfDay?>((ref) => null);
+final inputProvider = StateProvider<String?>((ref) => null);

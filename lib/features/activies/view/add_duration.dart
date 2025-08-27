@@ -16,7 +16,6 @@ class AddDuration extends ConsumerStatefulWidget {
 class _AddDurationState extends ConsumerState<AddDuration> {
   TimeOfDay? startActivity;
   TimeOfDay? endActivity;
-  final TextEditingController controller = TextEditingController();
 
   Future<void> _startActivity() async {
     final TimeOfDay? picked = await showTimePicker(
@@ -198,9 +197,10 @@ class _AddDurationState extends ConsumerState<AddDuration> {
             ),
             SizedBox(height: 10),
             TextField(
-              controller: controller,
+              onChanged: (value) {
+                ref.read(inputProvider.notifier).state = value;
+              },
               maxLines: 4,
-
               decoration: InputDecoration(
                 hintText: "(Opsiyonel)",
                 hintStyle: Theme.of(context).textTheme.bodyMedium,
